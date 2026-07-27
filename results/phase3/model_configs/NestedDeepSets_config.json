@@ -1,0 +1,15 @@
+{
+    "hidden_dim": 32,
+    "beta": 5.0,
+    "tau_start": 0.5,
+    "tau_final": 0.05,
+    "train_iters": 50,
+    "eval_iters": 500,
+    "cost_normalization": "feature_dimension",
+    "selected_threshold": 0.5,
+    "model_name": "NestedDeepSets",
+    "learned_encoder": true,
+    "learned_residual_cost": false,
+    "sinkhorn_enabled": false,
+    "straight_through_hungarian": false
+}
