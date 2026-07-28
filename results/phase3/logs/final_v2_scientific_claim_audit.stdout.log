@@ -1,0 +1,88 @@
+{
+  "schema_version": "phase3-scientific-claim-audit-v1",
+  "status": "PASS",
+  "primary_model": "LearnedSinkhornMatcher",
+  "checks": {
+    "learned_primary_has_no_fixed_or_metadata_separator": {
+      "status": "PASS",
+      "forward_signature": "(self, bx: 'torch.Tensor', by: 'torch.Tensor', return_aux: 'bool' = False) -> 'torch.Tensor | tuple[torch.Tensor, dict[str, torch.Tensor | float], dict[str, torch.Tensor | float]]'",
+      "forbidden_source_token_hits": [],
+      "model_inputs": [
+        "B_x",
+        "B_y"
+      ]
+    },
+    "primary_zero_shot_is_chance_level": {
+      "status": "PASS",
+      "minimum_accuracy": 0.5,
+      "maximum_accuracy": 0.5,
+      "mean_roc_auc": 0.5458902499999999,
+      "row_count": 25
+    },
+    "training_improves_primary": {
+      "status": "PASS",
+      "zero_shot_train_accuracy_mean": 0.5,
+      "trained_train_accuracy_mean": 1.0,
+      "improvement": 0.5
+    },
+    "five_independent_primary_seeds": {
+      "status": "PASS",
+      "unique_initial_state_count": 5,
+      "unique_final_state_count": 5,
+      "unique_first_epoch_order_count": 5
+    },
+    "algorithmic_models_are_not_claimed_as_learned": {
+      "status": "PASS",
+      "models": [
+        "DeterministicDifferentiableMatching",
+        "ExactHungarianOracle",
+        "FixedL1ResidualSinkhorn",
+        "FixedL1StraightThroughHungarian"
+      ],
+      "role_failures": [],
+      "optimized_row_count": 0
+    },
+    "oracle_separation_control": {
+      "status": "PASS",
+      "oracle_test_accuracy_mean": 1.0,
+      "learned_primary_zero_shot_test_accuracy_mean": 0.5
+    },
+    "final_test_protocol_is_locked": {
+      "status": "PASS",
+      "benchmark_version": "learned_benchmark_v2_final",
+      "locked_utc": "2026-07-27T17:21:23.220085+00:00",
+      "test_used_for_selection": false
+    },
+    "label_access_positive_control": {
+      "status": "PASS",
+      "prohibited_forward_hits": []
+    },
+    "invalid_label_negative_controls": {
+      "status": "PASS",
+      "protocol": "supervised_label_signal_only",
+      "self_supervised_structural_pretraining": false,
+      "failures": []
+    },
+    "pretraining_confound_is_preserved_and_disclosed": {
+      "status": "PASS",
+      "path": "results/phase3/controls/full_pipeline_pretraining_confound_controls.json",
+      "original_status": "FAIL",
+      "original_failures": [
+        {
+          "control": "random",
+          "split": "iid_test",
+          "mean_accuracy": 0.665,
+          "maximum": 0.65
+        },
+        {
+          "control": "random",
+          "split": "ood_template_test",
+          "mean_accuracy": 0.6915,
+          "maximum": 0.65
+        }
+      ],
+      "interpretation": "The full-pipeline invalid-label run includes label-free structural pretraining and therefore cannot isolate supervised label signal."
+    }
+  },
+  "interpretation": "Perfect fixed-L1/Hungarian results are algorithmic baselines. Learned claims are restricted to the randomly initialized LearnedSinkhornMatcher and its measured zero-shot-to-trained change. The preserved full-pipeline invalid-label failure shows that self-supervised pretraining supplies structural task signal; the supervised-only control isolates corrupted label signal."
+}

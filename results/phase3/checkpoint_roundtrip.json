@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "checked_checkpoint_count": 50,
+  "expected_checkpoint_count": 50,
+  "failures": []
+}

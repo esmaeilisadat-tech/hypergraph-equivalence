@@ -1,0 +1,16 @@
+{
+  "name": "gate_evidence_validation",
+  "command": [
+    "{python}",
+    "-c",
+    "import json,pathlib; p=pathlib.Path('results/phase3'); names=['gate_a_report.json','gate_b_report.json','gate_c_report.json','checkpoint_roundtrip.json']; rows={n:json.loads((p/n).read_text())['status'] for n in names}; print(json.dumps(rows,indent=2)); raise SystemExit(0 if all(v=='PASS' for v in rows.values()) else 1)"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T15:07:50.855701+00:00",
+  "ended_utc": "2026-07-27T15:07:50.965805+00:00",
+  "runtime_seconds": 0.11096370000086608,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\gate_evidence_validation.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\gate_evidence_validation.stderr.log",
+  "status": "PASS"
+}

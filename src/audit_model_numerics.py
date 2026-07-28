@@ -1,194 +1,337 @@
-import os
+"""Complete compact-submatrix float64 audit for the primary Phase 3 model."""
+
+from __future__ import annotations
+
+import hashlib
 import json
-import torch
+from collections import defaultdict
+from pathlib import Path
+from typing import Any
+
 import numpy as np
-from tqdm import tqdm
+import torch
 
-from src.run_phase3_final import load_data, get_batch
-from src.config_manager import load_config
-from src.differentiable_matching import DifferentiableIncidenceMatchingNetwork
+from src.differentiable_matching import (
+    LearnedSinkhornMatcher,
+    initialize_model,
+)
+from src.phase3_data import PROJECT_ROOT, load_spec, load_splits
 
-def compute_residuals(P, mask_x, mask_y):
-    row_sum = P.sum(dim=2)
-    col_sum = P.sum(dim=1)
-    
-    # Target row mass is 1.0 for valid rows (because Sinkhorn normalizes rows)
-    # Wait, Sinkhorn normalizes rows to 1.0? 
-    # Let's check: u = 1 / (K v), so u (K v) = 1. So row sum is 1.0 for valid rows.
-    # What about col sum? It depends on the number of valid rows and cols!
-    # Let's just check if row_sum matches mask_x exactly.
-    row_residual = torch.abs(row_sum - mask_x).max().item()
-    
-    # Total mass should equal number of valid rows
-    total_mass = P.sum(dim=(1,2))
-    expected_mass = mask_x.sum(dim=1)
-    mass_residual = torch.abs(total_mass - expected_mass).max().item()
-    
-    # P must be non-negative
-    min_p = P.min().item()
-    
-    # Check NaN/Inf
-    is_finite = torch.isfinite(P).all().item()
-    
-    return row_residual, mass_residual, min_p, is_finite
+RESULT_DIR = PROJECT_ROOT / "results" / "phase3"
 
-def audit_numerics():
-    cfg = load_config("MatchingNetwork")
-    seeds = [42, 100, 2026, 777, 999]
-    splits = load_data()
-    audit_splits = ['iid_test', 'ood_template_test', 'ood_size_test']
-    
-    results = {
-        "num_audited": 0,
-        "num_failures": 0,
-        "mean_error": 0.0,
-        "max_error": 0.0,
-        "worst_sample_id": None,
-        "worst_seed": None,
-        "worst_split": None,
-        "failed_quantity": None,
-        "p95_error": 0.0,
-        "p99_error": 0.0
+
+class Measurements:
+    def __init__(self) -> None:
+        self.values: dict[str, list[float]] = defaultdict(list)
+        self.locations: dict[str, list[dict[str, Any]]] = defaultdict(list)
+
+    def add(
+        self,
+        name: str,
+        values: torch.Tensor | np.ndarray,
+        samples: list[dict[str, Any]],
+        seed: int,
+        split: str,
+    ) -> None:
+        array = np.asarray(
+            values.detach().cpu().numpy()
+            if isinstance(values, torch.Tensor)
+            else values,
+            dtype=np.float64,
+        ).reshape(-1)
+        for value, sample in zip(array, samples):
+            self.values[name].append(float(value))
+            self.locations[name].append(
+                {
+                    "seed": seed,
+                    "split": split,
+                    "sample_id": sample["sample_id"],
+                }
+            )
+
+    def summarize(
+        self, tolerances: dict[str, float], iterations: int
+    ) -> dict[str, Any]:
+        summaries: dict[str, Any] = {}
+        for name, raw_values in self.values.items():
+            values = np.asarray(raw_values, dtype=np.float64)
+            maximum_index = int(np.nanargmax(values))
+            tolerance = float(tolerances[name])
+            summaries[name] = {
+                "audited_count": int(len(values)),
+                "failed_count": int(np.sum((~np.isfinite(values)) | (values > tolerance))),
+                "mean": float(np.nanmean(values)),
+                "maximum": float(np.nanmax(values)),
+                "p95": float(np.nanpercentile(values, 95)),
+                "p99": float(np.nanpercentile(values, 99)),
+                "tolerance": tolerance,
+                "worst_seed": self.locations[name][maximum_index]["seed"],
+                "worst_split": self.locations[name][maximum_index]["split"],
+                "worst_sample_id": self.locations[name][maximum_index][
+                    "sample_id"
+                ],
+                "sinkhorn_iterations": iterations,
+            }
+        return summaries
+
+
+def _per_sample_max(values: torch.Tensor) -> torch.Tensor:
+    return values.reshape(values.shape[0], -1).abs().amax(dim=1)
+
+
+def _stable_permutations(
+    samples: list[dict[str, Any]], size: int, seed: int, suffix: str
+) -> torch.Tensor:
+    permutations = []
+    for sample in samples:
+        digest = hashlib.sha256(
+            f"{seed}:{sample['sample_id']}:{suffix}".encode("utf-8")
+        ).digest()
+        rng = np.random.default_rng(int.from_bytes(digest[:8], "little"))
+        permutations.append(rng.permutation(size))
+    return torch.tensor(np.stack(permutations), dtype=torch.long)
+
+
+def _permute_rows(
+    matrices: torch.Tensor, permutations: torch.Tensor
+) -> torch.Tensor:
+    return torch.gather(
+        matrices,
+        1,
+        permutations.unsqueeze(-1).expand(-1, -1, matrices.shape[2]),
+    )
+
+
+def _permute_columns(
+    matrices: torch.Tensor, permutations: torch.Tensor
+) -> torch.Tensor:
+    return torch.gather(
+        matrices,
+        2,
+        permutations.unsqueeze(1).expand(-1, matrices.shape[1], -1),
+    )
+
+
+def _direction(
+    model: LearnedSinkhornMatcher,
+    bx: torch.Tensor,
+    by: torch.Tensor,
+) -> tuple[torch.Tensor, dict[str, torch.Tensor | float]]:
+    output = model.forward_direction(bx, by, return_aux=True)
+    assert isinstance(output, tuple)
+    return output
+
+
+def _audit_group(
+    model: LearnedSinkhornMatcher,
+    samples: list[dict[str, Any]],
+    seed: int,
+    split: str,
+    measurements: Measurements,
+) -> None:
+    bx = torch.tensor(
+        np.stack([sample["B_x"] for sample in samples]),
+        dtype=torch.float64,
+    )
+    by = torch.tensor(
+        np.stack([sample["B_y"] for sample in samples]),
+        dtype=torch.float64,
+    )
+    rows, columns = bx.shape[1:]
+    row_permutation = _stable_permutations(samples, rows, seed, "rows")
+    column_permutation = _stable_permutations(samples, columns, seed, "columns")
+    bx_row = _permute_rows(bx, row_permutation)
+    bx_column = _permute_columns(bx, column_permutation)
+    by_column = _permute_columns(by, column_permutation)
+    with torch.no_grad():
+        logit_xy, aux_xy = _direction(model, bx, by)
+        logit_yx, aux_yx = _direction(model, by, bx)
+        logit_row_xy, aux_row_xy = _direction(model, bx_row, by)
+        logit_row_yx, _ = _direction(model, by, bx_row)
+        logit_column_xy, aux_column_xy = _direction(
+            model, bx_column, by_column
+        )
+        logit_column_yx, _ = _direction(model, by_column, bx_column)
+
+    cost_xy = aux_xy["C"]
+    cost_yx = aux_yx["C"]
+    coupling_xy = aux_xy["P"]
+    coupling_yx = aux_yx["P"]
+    assert isinstance(cost_xy, torch.Tensor)
+    assert isinstance(cost_yx, torch.Tensor)
+    assert isinstance(coupling_xy, torch.Tensor)
+    assert isinstance(coupling_yx, torch.Tensor)
+    matching_xy = aux_xy["matching_cost"]
+    matching_yx = aux_yx["matching_cost"]
+    equality_xy = aux_xy["equality_score"]
+    equality_yx = aux_yx["equality_score"]
+    assert isinstance(matching_xy, torch.Tensor)
+    assert isinstance(matching_yx, torch.Tensor)
+    assert isinstance(equality_xy, torch.Tensor)
+    assert isinstance(equality_yx, torch.Tensor)
+    final_logit = 0.5 * (logit_xy + logit_yx)
+    swapped_logit = 0.5 * (logit_yx + logit_xy)
+    row_logit = 0.5 * (logit_row_xy + logit_row_yx)
+    column_logit = 0.5 * (logit_column_xy + logit_column_yx)
+    inverse_rows = torch.argsort(row_permutation, dim=1)
+    row_coupling = aux_row_xy["P"]
+    assert isinstance(row_coupling, torch.Tensor)
+    unpermuted_row_coupling = torch.gather(
+        row_coupling,
+        1,
+        inverse_rows.unsqueeze(-1).expand(-1, -1, rows),
+    )
+    column_coupling = aux_column_xy["P"]
+    assert isinstance(column_coupling, torch.Tensor)
+    target_marginal = torch.full(
+        (len(samples), rows), 1.0 / rows, dtype=torch.float64
+    )
+
+    finite_cost_error = (
+        (~torch.isfinite(cost_xy)).reshape(len(samples), -1).any(1).double()
+    )
+    finite_coupling_error = (
+        (~torch.isfinite(coupling_xy)).reshape(len(samples), -1).any(1).double()
+    )
+    quantities = {
+        "cost_finite_violation": finite_cost_error,
+        "coupling_finite_violation": finite_coupling_error,
+        "coupling_nonnegativity_violation": torch.clamp(
+            -coupling_xy, min=0
+        ).reshape(len(samples), -1).amax(1),
+        "cost_transpose_error": _per_sample_max(
+            cost_yx - cost_xy.transpose(1, 2)
+        ),
+        "coupling_transpose_error": _per_sample_max(
+            coupling_yx - coupling_xy.transpose(1, 2)
+        ),
+        "assignment_transpose_error": _per_sample_max(
+            coupling_yx.transpose(1, 2) - coupling_xy
+        ),
+        "matching_cost_swap_error": (matching_xy - matching_yx).abs().flatten(),
+        "equality_score_swap_error": (equality_xy - equality_yx).abs().flatten(),
+        "final_logit_swap_error": (final_logit - swapped_logit).abs(),
+        "final_probability_swap_error": (
+            torch.sigmoid(final_logit) - torch.sigmoid(swapped_logit)
+        ).abs(),
+        "total_coupling_mass_error": (
+            coupling_xy.sum((1, 2)) - 1.0
+        ).abs(),
+        "row_marginal_residual": (
+            coupling_xy.sum(2) - target_marginal
+        ).abs().amax(1),
+        "column_marginal_residual": (
+            coupling_xy.sum(1) - target_marginal
+        ).abs().amax(1),
+        "node_row_permutation_coupling_error": _per_sample_max(
+            unpermuted_row_coupling - coupling_xy
+        ),
+        "node_row_permutation_logit_error": (row_logit - final_logit).abs(),
+        "node_row_permutation_probability_error": (
+            torch.sigmoid(row_logit) - torch.sigmoid(final_logit)
+        ).abs(),
+        "joint_column_permutation_cost_error": _per_sample_max(
+            aux_column_xy["C"] - cost_xy
+        ),
+        "joint_column_permutation_coupling_error": _per_sample_max(
+            column_coupling - coupling_xy
+        ),
+        "joint_column_permutation_logit_error": (
+            column_logit - final_logit
+        ).abs(),
+        "joint_column_permutation_probability_error": (
+            torch.sigmoid(column_logit) - torch.sigmoid(final_logit)
+        ).abs(),
     }
-    
-    all_errors = []
-    worst_err = -1.0
-    
-    for seed in seeds:
-        print(f"Auditing seed {seed}...")
-        model = DifferentiableIncidenceMatchingNetwork(cfg)
-        chkpt_path = f"results/phase3/checkpoints/MatchingNetwork_seed{seed}.pt"
-        if not os.path.exists(chkpt_path):
-            print(f"Skipping seed {seed}, checkpoint not found.")
-            continue
-            
-        model.load_state_dict(torch.load(chkpt_path))
-        model.eval()
-        model.eval_iters = 500
-        model.double() # Ensure float64
-        
-        for split_name in audit_splits:
-            Bx, By, y = get_batch(splits[split_name])
-            if Bx is None: continue
-            
-            Bx = Bx.double()
-            By = By.double()
-            
-            bs = 32
-            for i in range(0, Bx.shape[0], bs):
-                bx_batch = Bx[i:i+bs]
-                by_batch = By[i:i+bs]
-                
-                with torch.no_grad():
-                    l1, aux1 = model.forward_direction(bx_batch, by_batch, return_aux=True)
-                    l2, aux2 = model.forward_direction(by_batch, bx_batch, return_aux=True)
-                    
-                    logit_xy = model(bx_batch, by_batch)
-                    logit_yx = model(by_batch, bx_batch)
-                    prob_xy = torch.sigmoid(logit_xy)
-                    prob_yx = torch.sigmoid(logit_yx)
-                    
-                    # Permute rows of Bx (node permutation)
-                    bx_perm = bx_batch.clone()
-                    for j in range(bx_perm.shape[0]):
-                        row_perm = torch.randperm(bx_perm.shape[1])
-                        bx_perm[j] = bx_perm[j, row_perm, :]
-                    
-                    l_perm, aux_perm = model.forward_direction(bx_perm, by_batch, return_aux=True)
-                    logit_perm = model(bx_perm, by_batch)
-                    prob_perm = torch.sigmoid(logit_perm)
-                    
-                # 1. C_yx ≈ C_xy^T
-                C_xy = aux1['C_base']
-                C_yx = aux2['C_base']
-                C_err = torch.abs(C_yx - C_xy.transpose(1, 2)).view(bx_batch.shape[0], -1).max(dim=1)[0].numpy()
-                
-                # 2. P_yx ≈ P_xy^T
-                P_xy = aux1['P']
-                P_yx = aux2['P']
-                P_err = torch.abs(P_yx - P_xy.transpose(1, 2)).view(bx_batch.shape[0], -1).max(dim=1)[0].numpy()
-                
-                # 3. Matching Cost Invariant
-                mcost_xy = torch.sum(P_xy * C_xy, dim=(1,2)).numpy()
-                mcost_yx = torch.sum(P_yx * C_yx, dim=(1,2)).numpy()
-                mcost_err = np.abs(mcost_xy - mcost_yx)
-                
-                # 4. Equality Score Invariant
-                eq_xy = torch.sum(P_xy * torch.exp(-model.beta * C_xy), dim=(1,2)).numpy()
-                eq_yx = torch.sum(P_yx * torch.exp(-model.beta * C_yx), dim=(1,2)).numpy()
-                eq_err = np.abs(eq_xy - eq_yx)
-                
-                # 5 & 6. Logits & Probs Invariant
-                logit_swap_err = torch.abs(logit_xy - logit_yx).numpy()
-                prob_swap_err = torch.abs(prob_xy - prob_yx).numpy()
-                logit_perm_err = torch.abs(logit_xy - logit_perm).numpy()
-                prob_perm_err = torch.abs(prob_xy - prob_perm).numpy()
-                
-                # 8, 9, 10. Sinkhorn Residuals
-                mask_x = aux1['mask_x']
-                mask_y = aux1['mask_y']
-                
-                # Row marginal sum should equal mask_x
-                row_sum = P_xy.sum(dim=2)
-                row_res = torch.abs(row_sum - mask_x).max(dim=1)[0].numpy()
-                
-                # Total mass should equal mask_x sum
-                total_mass = P_xy.sum(dim=(1,2))
-                exp_mass = mask_x.sum(dim=1)
-                mass_res = torch.abs(total_mass - exp_mass).numpy()
-                
-                for j in range(bx_batch.shape[0]):
-                    errs = {
-                        "C_err": C_err[j],
-                        "P_err": P_err[j],
-                        "mcost_err": mcost_err[j],
-                        "eq_err": eq_err[j],
-                        "logit_swap_err": logit_swap_err[j],
-                        "prob_swap_err": prob_swap_err[j],
-                        "logit_perm_err": logit_perm_err[j],
-                        "prob_perm_err": prob_perm_err[j],
-                        "row_res": row_res[j],
-                        "mass_res": mass_res[j]
-                    }
-                    
-                    max_err_val = -1
-                    failed_q = None
-                    for k, v in errs.items():
-                        if v > max_err_val:
-                            max_err_val = v
-                            failed_q = k
-                            
-                    all_errors.append(float(max_err_val))
-                    
-                    if max_err_val > worst_err:
-                        worst_err = max_err_val
-                        results['worst_sample_id'] = splits[split_name][i+j].get('sample_id', str(i+j))
-                        results['worst_split'] = split_name
-                        results['worst_seed'] = seed
-                        results['failed_quantity'] = failed_q
-                        
-                    if max_err_val > 1e-6:
-                        results['num_failures'] += 1
-                        
-                    results['num_audited'] += 1
-                
-    if len(all_errors) > 0:
-        results['mean_error'] = float(np.mean(all_errors))
-        results['max_error'] = float(np.max(all_errors))
-        results['p95_error'] = float(np.percentile(all_errors, 95))
-        results['p99_error'] = float(np.percentile(all_errors, 99))
-        
-    os.makedirs("results/phase3", exist_ok=True)
-    with open("results/phase3/numerical_audit.json", "w") as f:
-        json.dump(results, f, indent=4)
-        
-    print("Numerical Audit Results:")
-    print(json.dumps(results, indent=4))
-    
-    if results['num_failures'] > 0:
-        print("FAIL: Numerical audit failed on some samples!")
-    else:
-        print("PASS: Numerical audit succeeded.")
+    for name, values in quantities.items():
+        measurements.add(name, values, samples, seed, split)
+
+
+def run_numerical_audit() -> dict[str, Any]:
+    spec = load_spec()
+    audit_spec = spec["numerical_audit"]
+    iterations = int(spec["training"]["audit_sinkhorn_iterations"])
+    splits = load_splits(audit_spec["splits"])
+    measurements = Measurements()
+    for seed in spec["seeds"]:
+        checkpoint_path = (
+            RESULT_DIR
+            / "checkpoints"
+            / f"{spec['primary_model']}_seed{seed}.pt"
+        )
+        payload = torch.load(
+            checkpoint_path, map_location="cpu", weights_only=False
+        )
+        config = dict(payload["model_config"])
+        config["eval_iters"] = iterations
+        model = initialize_model(config).double().eval()
+        model.load_state_dict(payload["state_dict"])
+        assert isinstance(model, LearnedSinkhornMatcher)
+        model.eval_iters = iterations
+        for split, samples in splits.items():
+            groups: dict[tuple[int, int], list[dict[str, Any]]] = defaultdict(list)
+            for sample in samples:
+                groups[(int(sample["m"]), int(sample["k"]))].append(sample)
+            for group_samples in groups.values():
+                _audit_group(
+                    model, group_samples, int(seed), split, measurements
+                )
+
+    structural = float(audit_spec["structural_tolerance"])
+    marginal = float(audit_spec["marginal_tolerance"])
+    tolerances = {
+        name: (
+            marginal
+            if name
+            in {
+                "total_coupling_mass_error",
+                "row_marginal_residual",
+                "column_marginal_residual",
+            }
+            else structural
+        )
+        for name in measurements.values
+    }
+    summaries = measurements.summarize(tolerances, iterations)
+    audited_count = sum(len(samples) for samples in splits.values()) * len(
+        spec["seeds"]
+    )
+    report = {
+        "schema_version": "phase3-numerical-audit-v2",
+        "status": "PASS"
+        if all(row["failed_count"] == 0 for row in summaries.values())
+        else "FAIL",
+        "model": spec["primary_model"],
+        "dtype": "float64",
+        "compact_valid_submatrices": True,
+        "explicit_masks_and_uniform_marginals": True,
+        "deterministic_permutations": True,
+        "sinkhorn_iterations": iterations,
+        "audited_sample_count": audited_count,
+        "failed_sample_count": int(
+            sum(
+                any(
+                    measurements.values[name][index] > tolerances[name]
+                    for name in measurements.values
+                )
+                for index in range(audited_count)
+            )
+        ),
+        "quantities": summaries,
+        "interpretation": {
+            "rows": "incident hyperedges; their order is a set order and is mandatory invariant",
+            "columns": "neighbor nodes; joint relabeling is mandatory invariant",
+            "root_swap": "the unordered root pair requires transpose equivariance and final-score invariance",
+        },
+    }
+    output_path = RESULT_DIR / "numerical_audit.json"
+    output_path.write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8"
+    )
+    return report
+
 
 if __name__ == "__main__":
-    audit_numerics()
+    result = run_numerical_audit()
+    print(json.dumps(result, indent=2))
+    raise SystemExit(0 if result["status"] == "PASS" else 1)

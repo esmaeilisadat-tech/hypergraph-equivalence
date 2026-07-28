@@ -1,0 +1,16 @@
+{
+  "name": "learned_primary_candidate_v4_seed42_train_validation_only",
+  "command": [
+    "{python}",
+    "-c",
+    "import json, pathlib, torch; from src.phase3_data import load_splits,file_sha256; from src.phase3_experiments import train_model,predict,_metrics,_checkpoint_payload; s=load_splits(['train','validation']); m,meta=train_model('LearnedSinkhornMatcher',42,s['train'],s['validation']); d=pathlib.Path('results/phase3/model_selection'); d.mkdir(parents=True,exist_ok=True); cp=d/'candidate_v4_seed42.pt'; torch.save(_checkpoint_payload(m,meta),cp); out={'candidate':'v4','seed':42,'checkpoint':str(cp),'checkpoint_sha256':file_sha256(cp),'train':_metrics(*predict(m,s['train'])),'validation':_metrics(*predict(m,s['validation'])),'metadata':meta}; (d/'candidate_v4_seed42.json').write_text(json.dumps(out,indent=2)+'\\n',encoding='utf-8'); print(json.dumps({k:v for k,v in out.items() if k!='metadata'} | {'selection_epoch':meta['selection_epoch'],'epochs_executed':meta['epochs_executed'],'initial_train':meta['initial_train_metrics'],'initial_validation':meta['initial_validation_metrics']},indent=2))"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T16:48:47.930435+00:00",
+  "ended_utc": "2026-07-27T17:04:57.876106+00:00",
+  "runtime_seconds": 969.9559226000019,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\learned_primary_candidate_v4_seed42_train_validation_only.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\learned_primary_candidate_v4_seed42_train_validation_only.stderr.log",
+  "status": "PASS"
+}

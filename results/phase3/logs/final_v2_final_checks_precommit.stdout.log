@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "failures": [],
+  "checkpoint_count": 50,
+  "prediction_count": 250,
+  "run_record_count": 50,
+  "per_seed_metric_count": 250,
+  "aggregate_metric_count": 50,
+  "maximum_metric_recomputation_error": 3.4009236205001514e-08,
+  "notebooks": {
+    "Phase3_Research.ipynb": {
+      "code_cells": 9,
+      "executed_cells": 9,
+      "error_outputs": 0
+    },
+    "Phase3_Explained_FA.ipynb": {
+      "code_cells": 9,
+      "executed_cells": 9,
+      "error_outputs": 0
+    }
+  },
+  "required_seeds": [
+    42,
+    100,
+    2026,
+    777,
+    999
+  ]
+}

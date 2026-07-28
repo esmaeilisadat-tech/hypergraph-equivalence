@@ -1,0 +1,15 @@
+{
+  "architecture": "deterministic_matching",
+  "beta": 5.0,
+  "eval_iters": 100,
+  "hidden_dim": 24,
+  "learned_encoder": false,
+  "learned_residual_cost": false,
+  "model_name": "DeterministicDifferentiableMatching",
+  "selected_threshold": 0.5,
+  "sinkhorn_enabled": true,
+  "straight_through_hungarian": false,
+  "tau_final": 0.005,
+  "tau_start": 0.02,
+  "train_iters": 40
+}

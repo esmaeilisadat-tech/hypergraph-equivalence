@@ -1,0 +1,209 @@
+{
+  "benchmark_version": "learned_benchmark_v2_final",
+  "failures": [],
+  "interpretation": {
+    "hard_negatives": "Cost-4 negatives are minimum Ryser-switch near-isomorphs.",
+    "nuisance_rule": "Recorded size, density, row-margin, column-margin, and total-incidence scalars must not separate labels.",
+    "oracle_caveat": "Exact Hungarian zero-versus-positive cost necessarily separates exact row-multiset equivalence by definition. The learned primary is prohibited from receiving that cost or any fixed L1 separator.",
+    "applied_test_policy": "Final v2 tests were generated and frozen after candidate v5 selection but before first final-v2 test evaluation. Candidate development used the preserved v1 benchmark.",
+    "policy_as_written_in_spec": "All split files and hashes are frozen before the first learned-model optimization run. Test splits are evaluation-only and may not guide model or hyperparameter changes."
+  },
+  "schema_version": "phase3-learned-benchmark-audit-v1",
+  "split_reports": {
+    "iid_test": {
+      "class_counts": {
+        "0": 400,
+        "1": 400
+      },
+      "file_sha256": "260a8f3963b77c36c5e0c6064838bdb2d3042ef85426728c23f6adafde358c4f",
+      "negative_hungarian_cost": {
+        "hard_negative_count_cost_4": 271,
+        "maximum": 14.0,
+        "minimum": 4.0,
+        "unique": [
+          4.0,
+          6.0,
+          8.0,
+          10.0,
+          12.0,
+          14.0
+        ]
+      },
+      "nuisance_scalar_best_direction_auc": {
+        "column_degree_l1": 0.5,
+        "density_sum": 0.5,
+        "k": 0.5,
+        "m": 0.5,
+        "sorted_row_sum_l1": 0.5,
+        "total_incidence_difference": 0.5
+      },
+      "nuisance_scalar_max_auc": 0.5,
+      "oracle_label_failure_count": 0,
+      "positive_hungarian_cost": {
+        "maximum": 0.0,
+        "minimum": 0.0,
+        "unique": [
+          0.0
+        ]
+      },
+      "sample_count": 800
+    },
+    "ood_size_test": {
+      "class_counts": {
+        "0": 200,
+        "1": 200
+      },
+      "file_sha256": "58625a95222355f928a04e34e5456fa50535b85299b1ad7bc1827ee1d197b982",
+      "negative_hungarian_cost": {
+        "hard_negative_count_cost_4": 57,
+        "maximum": 16.0,
+        "minimum": 4.0,
+        "unique": [
+          4.0,
+          6.0,
+          8.0,
+          10.0,
+          12.0,
+          14.0,
+          16.0
+        ]
+      },
+      "nuisance_scalar_best_direction_auc": {
+        "column_degree_l1": 0.5,
+        "density_sum": 0.5,
+        "k": 0.5,
+        "m": 0.5000000000000001,
+        "sorted_row_sum_l1": 0.5,
+        "total_incidence_difference": 0.5
+      },
+      "nuisance_scalar_max_auc": 0.5000000000000001,
+      "oracle_label_failure_count": 0,
+      "positive_hungarian_cost": {
+        "maximum": 0.0,
+        "minimum": 0.0,
+        "unique": [
+          0.0
+        ]
+      },
+      "sample_count": 400
+    },
+    "ood_template_test": {
+      "class_counts": {
+        "0": 400,
+        "1": 400
+      },
+      "file_sha256": "e8de47dba98ee788f6658e276d3a85e50c448aa35d5666801b8c31f09b56c322",
+      "negative_hungarian_cost": {
+        "hard_negative_count_cost_4": 158,
+        "maximum": 20.0,
+        "minimum": 4.0,
+        "unique": [
+          4.0,
+          6.0,
+          8.0,
+          10.0,
+          12.0,
+          14.0,
+          16.0,
+          20.0
+        ]
+      },
+      "nuisance_scalar_best_direction_auc": {
+        "column_degree_l1": 0.5,
+        "density_sum": 0.5,
+        "k": 0.5,
+        "m": 0.5,
+        "sorted_row_sum_l1": 0.5,
+        "total_incidence_difference": 0.5
+      },
+      "nuisance_scalar_max_auc": 0.5,
+      "oracle_label_failure_count": 0,
+      "positive_hungarian_cost": {
+        "maximum": 0.0,
+        "minimum": 0.0,
+        "unique": [
+          0.0
+        ]
+      },
+      "sample_count": 800
+    },
+    "train": {
+      "class_counts": {
+        "0": 400,
+        "1": 400
+      },
+      "file_sha256": "6d16657a848ef31e820c597eb585199a0b402ccfac92c247ea33d78664c38edf",
+      "negative_hungarian_cost": {
+        "hard_negative_count_cost_4": 281,
+        "maximum": 16.0,
+        "minimum": 4.0,
+        "unique": [
+          4.0,
+          6.0,
+          8.0,
+          10.0,
+          12.0,
+          14.0,
+          16.0
+        ]
+      },
+      "nuisance_scalar_best_direction_auc": {
+        "column_degree_l1": 0.5,
+        "density_sum": 0.5,
+        "k": 0.5,
+        "m": 0.5,
+        "sorted_row_sum_l1": 0.5,
+        "total_incidence_difference": 0.5
+      },
+      "nuisance_scalar_max_auc": 0.5,
+      "oracle_label_failure_count": 0,
+      "positive_hungarian_cost": {
+        "maximum": 0.0,
+        "minimum": 0.0,
+        "unique": [
+          0.0
+        ]
+      },
+      "sample_count": 800
+    },
+    "validation": {
+      "class_counts": {
+        "0": 400,
+        "1": 400
+      },
+      "file_sha256": "69bfa5c61be13bf71199cd152f8f5dfe002451fd08e80f282204d00ce9f63ada",
+      "negative_hungarian_cost": {
+        "hard_negative_count_cost_4": 276,
+        "maximum": 16.0,
+        "minimum": 4.0,
+        "unique": [
+          4.0,
+          6.0,
+          8.0,
+          10.0,
+          12.0,
+          16.0
+        ]
+      },
+      "nuisance_scalar_best_direction_auc": {
+        "column_degree_l1": 0.5,
+        "density_sum": 0.5,
+        "k": 0.5,
+        "m": 0.5,
+        "sorted_row_sum_l1": 0.5,
+        "total_incidence_difference": 0.5
+      },
+      "nuisance_scalar_max_auc": 0.5,
+      "oracle_label_failure_count": 0,
+      "positive_hungarian_cost": {
+        "maximum": 0.0,
+        "minimum": 0.0,
+        "unique": [
+          0.0
+        ]
+      },
+      "sample_count": 800
+    }
+  },
+  "status": "PASS"
+}

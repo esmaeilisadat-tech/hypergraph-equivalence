@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "zip_path": "results/phase3/phase3_reproducible.zip",
+  "zip_sha256": "924f94c6ef26c3536ca7d8672d669a93804ba51406b43284282eeeddcd23f7e1",
+  "zip_size_bytes": 4140244,
+  "failures": []
+}

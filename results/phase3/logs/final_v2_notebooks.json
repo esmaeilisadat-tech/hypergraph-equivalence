@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_notebooks",
+  "command": [
+    "{python}",
+    "-m",
+    "src.execute_notebooks"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-28T00:04:58.691765+00:00",
+  "ended_utc": "2026-07-28T00:05:09.799620+00:00",
+  "runtime_seconds": 11.108671699999832,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_notebooks.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_notebooks.stderr.log",
+  "status": "PASS"
+}

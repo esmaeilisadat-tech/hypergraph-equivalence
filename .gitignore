@@ -5,4 +5,5 @@ __pycache__/
 tmp/
 results/phase3_archive/
 *.zip
-
+results/phase3/run_manifest.json
+results/phase3/final_artifact_manifest.json

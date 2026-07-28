@@ -1,0 +1,12 @@
+{
+  "architecture": "exact_hungarian",
+  "beta": 5.0,
+  "eval_iters": 100,
+  "hidden_dim": 24,
+  "model_name": "ExactHungarianOracle",
+  "oracle_logit_magnitude": 20.0,
+  "selected_threshold": 0.5,
+  "tau_final": 0.01,
+  "tau_start": 0.05,
+  "train_iters": 30
+}

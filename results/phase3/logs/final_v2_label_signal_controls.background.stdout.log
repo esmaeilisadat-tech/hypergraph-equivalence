@@ -1,0 +1,20 @@
+{
+  "schema_version": "phase3-label-signal-controls-v1",
+  "status": "FAIL",
+  "completed_runs": 10,
+  "failures": [
+    {
+      "control": "random",
+      "split": "iid_test",
+      "mean_accuracy": 0.665,
+      "maximum": 0.65
+    },
+    {
+      "control": "random",
+      "split": "ood_template_test",
+      "mean_accuracy": 0.6915,
+      "maximum": 0.65
+    }
+  ],
+  "metrics_path": "results/phase3/controls/label_signal_control_metrics.csv"
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": "phase3-gate-c-v2",
+  "model": "MatchingNetwork",
+  "status": "PASS",
+  "completed_seed_count": 5,
+  "required_seed_count": 5,
+  "thresholds": {
+    "train_accuracy_threshold": 0.95,
+    "train_balanced_accuracy_threshold": 0.95,
+    "train_macro_f1_threshold": 0.95,
+    "train_min_class_recall_threshold": 0.9,
+    "checkpoint_selection": "validation_macro_f1_then_validation_loss"
+  },
+  "per_seed": [
+    {
+      "seed": 42,
+      "status": "PASS",
+      "train_metrics": {
+        "loss": 0.009044063837504711,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "macro_f1": 1.0,
+        "class_0_recall": 1.0,
+        "class_1_recall": 1.0
+      },
+      "selection_epoch": 160,
+      "selection_criterion": "validation_macro_f1_then_validation_loss",
+      "selected_temperature": 0.004999999888241291,
+      "train_sinkhorn_iterations": 40,
+      "evaluation_sinkhorn_iterations": 100,
+      "checkpoint": "results\\phase3\\checkpoints\\MatchingNetwork_seed42.pt",
+      "checkpoint_sha256": "7b0a54a6ffe80b2ca5282f30599977fdc157cd5715bd8760c04510517094fdea"
+    },
+    {
+      "seed": 100,
+      "status": "PASS",
+      "train_metrics": {
+        "loss": 0.009044063837504711,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "macro_f1": 1.0,
+        "class_0_recall": 1.0,
+        "class_1_recall": 1.0
+      },
+      "selection_epoch": 160,
+      "selection_criterion": "validation_macro_f1_then_validation_loss",
+      "selected_temperature": 0.004999999888241291,
+      "train_sinkhorn_iterations": 40,
+      "evaluation_sinkhorn_iterations": 100,
+      "checkpoint": "results\\phase3\\checkpoints\\MatchingNetwork_seed100.pt",
+      "checkpoint_sha256": "a1f4c8a34921663d5d3c4bb52b3cc3009a5ef022cd7966e8d937c1461955a9bb"
+    },
+    {
+      "seed": 2026,
+      "status": "PASS",
+      "train_metrics": {
+        "loss": 0.009044063837504711,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "macro_f1": 1.0,
+        "class_0_recall": 1.0,
+        "class_1_recall": 1.0
+      },
+      "selection_epoch": 160,
+      "selection_criterion": "validation_macro_f1_then_validation_loss",
+      "selected_temperature": 0.004999999888241291,
+      "train_sinkhorn_iterations": 40,
+      "evaluation_sinkhorn_iterations": 100,
+      "checkpoint": "results\\phase3\\checkpoints\\MatchingNetwork_seed2026.pt",
+      "checkpoint_sha256": "a86363b463b6bc809ed5459b7c64abb791ba591135ae8d3eda8c825f6ec0b7d4"
+    },
+    {
+      "seed": 777,
+      "status": "PASS",
+      "train_metrics": {
+        "loss": 0.009044063837504711,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "macro_f1": 1.0,
+        "class_0_recall": 1.0,
+        "class_1_recall": 1.0
+      },
+      "selection_epoch": 160,
+      "selection_criterion": "validation_macro_f1_then_validation_loss",
+      "selected_temperature": 0.004999999888241291,
+      "train_sinkhorn_iterations": 40,
+      "evaluation_sinkhorn_iterations": 100,
+      "checkpoint": "results\\phase3\\checkpoints\\MatchingNetwork_seed777.pt",
+      "checkpoint_sha256": "9fc88c93a3ec1f2d94ec38480d31802ffe37f37c461f726bbe056458b258187b"
+    },
+    {
+      "seed": 999,
+      "status": "PASS",
+      "train_metrics": {
+        "loss": 0.009044063837504711,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "macro_f1": 1.0,
+        "class_0_recall": 1.0,
+        "class_1_recall": 1.0
+      },
+      "selection_epoch": 160,
+      "selection_criterion": "validation_macro_f1_then_validation_loss",
+      "selected_temperature": 0.004999999888241291,
+      "train_sinkhorn_iterations": 40,
+      "evaluation_sinkhorn_iterations": 100,
+      "checkpoint": "results\\phase3\\checkpoints\\MatchingNetwork_seed999.pt",
+      "checkpoint_sha256": "ebf6122e003ea3faaab453ad2d37c138e76a2f7fb2c6a8cd22212b803925d285"
+    }
+  ]
+}

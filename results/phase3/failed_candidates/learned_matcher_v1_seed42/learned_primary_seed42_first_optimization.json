@@ -1,0 +1,16 @@
+{
+  "name": "learned_primary_seed42_first_optimization",
+  "command": [
+    "{python}",
+    "-c",
+    "import json; from src.phase3_data import load_splits; from src.phase3_experiments import run_model_seed; rows, gate = run_model_seed('LearnedSinkhornMatcher', 42, load_splits(), resume=True); print(json.dumps({'gate_c': gate, 'metrics': rows}, indent=2, allow_nan=True))"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T16:21:14.789757+00:00",
+  "ended_utc": "2026-07-27T16:23:12.364726+00:00",
+  "runtime_seconds": 117.57804219999889,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\learned_primary_seed42_first_optimization.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\learned_primary_seed42_first_optimization.stderr.log",
+  "status": "PASS"
+}

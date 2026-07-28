@@ -1,0 +1,15 @@
+{
+  "architecture": "learned_matching",
+  "beta": 5.0,
+  "cost_scale": 20.0,
+  "eval_iters": 100,
+  "hidden_dim": 24,
+  "model_name": "LearnedSinkhornMatcher",
+  "selected_threshold": 0.5,
+  "self_supervised_cost_pretraining": true,
+  "tau_final": 0.01,
+  "tau_start": 0.05,
+  "train_iters": 30,
+  "transport_mode": "sinkhorn",
+  "use_column_context": true
+}

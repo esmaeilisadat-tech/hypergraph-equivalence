@@ -1,0 +1,89 @@
+{
+  "common": {
+    "hidden_dim": 24,
+    "beta": 5.0,
+    "tau_start": 0.05,
+    "tau_final": 0.01,
+    "train_iters": 30,
+    "eval_iters": 100,
+    "selected_threshold": 0.5
+  },
+  "models": {
+    "LearnedSinkhornMatcher": {
+      "architecture": "learned_matching",
+      "use_column_context": true,
+      "transport_mode": "sinkhorn",
+      "cost_scale": 20.0,
+      "self_supervised_cost_pretraining": true
+    },
+    "MLP_Baseline": {
+      "architecture": "summary_mlp",
+      "learned_encoder": false,
+      "learned_residual_cost": false,
+      "sinkhorn_enabled": false,
+      "straight_through_hungarian": false
+    },
+    "NestedDeepSets": {
+      "architecture": "nested_deepsets",
+      "learned_encoder": true,
+      "learned_residual_cost": false,
+      "sinkhorn_enabled": false,
+      "straight_through_hungarian": false
+    },
+    "BipartiteEncoder": {
+      "architecture": "bipartite_encoder",
+      "learned_encoder": true,
+      "learned_residual_cost": false,
+      "sinkhorn_enabled": false,
+      "straight_through_hungarian": false
+    },
+    "DeterministicDifferentiableMatching": {
+      "architecture": "deterministic_matching",
+      "learned_encoder": false,
+      "learned_residual_cost": false,
+      "sinkhorn_enabled": true,
+      "straight_through_hungarian": false,
+      "tau_start": 0.02,
+      "tau_final": 0.005,
+      "train_iters": 40
+    },
+    "ExactHungarianOracle": {
+      "architecture": "exact_hungarian",
+      "oracle_logit_magnitude": 20.0
+    },
+    "FixedL1ResidualSinkhorn": {
+      "architecture": "deterministic_matching",
+      "learned_encoder": true,
+      "learned_residual_cost": true,
+      "sinkhorn_enabled": true,
+      "straight_through_hungarian": false,
+      "tau_start": 0.02,
+      "tau_final": 0.005,
+      "train_iters": 40
+    },
+    "FixedL1StraightThroughHungarian": {
+      "architecture": "deterministic_matching",
+      "learned_encoder": false,
+      "learned_residual_cost": false,
+      "sinkhorn_enabled": false,
+      "straight_through_hungarian": true,
+      "tau_start": 0.02,
+      "tau_final": 0.005,
+      "train_iters": 40
+    },
+    "LearnedNoSinkhorn": {
+      "architecture": "learned_matching",
+      "use_column_context": true,
+      "transport_mode": "uniform",
+      "cost_scale": 20.0,
+      "self_supervised_cost_pretraining": true
+    },
+    "LearnedNoColumnContext": {
+      "architecture": "learned_matching",
+      "use_column_context": false,
+      "transport_mode": "sinkhorn",
+      "cost_scale": 20.0,
+      "self_supervised_cost_pretraining": true
+    }
+  }
+}

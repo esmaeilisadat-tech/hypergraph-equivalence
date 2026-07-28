@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_scientific_claim_audit",
+  "command": [
+    "{python}",
+    "-m",
+    "src.scientific_claim_audit"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T23:04:35.709148+00:00",
+  "ended_utc": "2026-07-27T23:04:39.692782+00:00",
+  "runtime_seconds": 3.984996199993475,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_scientific_claim_audit.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_scientific_claim_audit.stderr.log",
+  "status": "PASS"
+}

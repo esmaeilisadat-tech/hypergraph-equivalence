@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_adopt_selected_seed42",
+  "command": [
+    "{python}",
+    "-m",
+    "src.adopt_selected_candidate"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T17:33:29.762497+00:00",
+  "ended_utc": "2026-07-27T17:34:02.981790+00:00",
+  "runtime_seconds": 33.221227800000634,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_adopt_selected_seed42.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_adopt_selected_seed42.stderr.log",
+  "status": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "numerical_audit_evidence",
+  "command": [
+    "{python}",
+    "-c",
+    "import json,pathlib; r=json.loads(pathlib.Path('results/phase3/numerical_audit.json').read_text()); print(json.dumps({'status':r['status'],'audited_sample_count':r['audited_sample_count'],'failed_sample_count':r['failed_sample_count'],'sinkhorn_iterations':r['sinkhorn_iterations']},indent=2)); raise SystemExit(0 if r['status']=='PASS' and r['failed_sample_count']==0 else 1)"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T15:07:50.931175+00:00",
+  "ended_utc": "2026-07-27T15:07:51.041108+00:00",
+  "runtime_seconds": 0.11105049999969197,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\numerical_audit_evidence.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\numerical_audit_evidence.stderr.log",
+  "status": "PASS"
+}

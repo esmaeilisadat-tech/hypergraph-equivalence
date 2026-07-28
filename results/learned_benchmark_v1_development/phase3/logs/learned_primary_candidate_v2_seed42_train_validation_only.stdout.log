@@ -1,0 +1,1017 @@
+{
+  "candidate": "v2",
+  "seed": 42,
+  "checkpoint": "results\\phase3\\model_selection\\candidate_v2_seed42.pt",
+  "checkpoint_sha256": "ae8b77d2c19ff82feba0c0f276ae98947159291a46ce2f615884c6729d438b09",
+  "train": {
+    "loss": 0.6931482780592141,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "macro_f1": 0.49974674679056275,
+    "roc_auc": 0.49907187500000005,
+    "pr_auc": 0.49984990292493225,
+    "brier_score": 0.25000056624412537,
+    "sample_count": 800,
+    "class_0_count": 400,
+    "class_1_count": 400,
+    "class_0_precision": 0.5,
+    "class_1_precision": 0.5,
+    "class_0_recall": 0.5225,
+    "class_1_recall": 0.4775,
+    "class_0_f1": 0.511002444987775,
+    "class_1_f1": 0.4884910485933504,
+    "class_0_support": 400,
+    "class_1_support": 400
+  },
+  "validation": {
+    "loss": 0.6931482667686635,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "macro_f1": 0.4990952407786564,
+    "roc_auc": 0.499090625,
+    "pr_auc": 0.49997670007094497,
+    "brier_score": 0.250000536441803,
+    "sample_count": 800,
+    "class_0_count": 400,
+    "class_1_count": 400,
+    "class_0_precision": 0.5,
+    "class_1_precision": 0.5,
+    "class_0_recall": 0.5425,
+    "class_1_recall": 0.4575,
+    "class_0_f1": 0.5203836930455635,
+    "class_1_f1": 0.47780678851174935,
+    "class_0_support": 400,
+    "class_1_support": 400
+  },
+  "metadata": {
+    "model": "LearnedSinkhornMatcher",
+    "seed": 42,
+    "selection_epoch": 74,
+    "selection_criterion": "validation_macro_f1_then_validation_loss",
+    "validation_macro_f1": 0.4990952407786564,
+    "validation_loss": 0.6931482667686635,
+    "selected_temperature": 0.022601893171668053,
+    "epochs_executed": 114,
+    "runtime_seconds": 528.0542815999979,
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "train_sinkhorn_iterations": 30,
+    "evaluation_sinkhorn_iterations": 100,
+    "optimization_performed": true,
+    "first_epoch_order_sha256": "fd333efc389dc499daf0400fa3e38b0f4bdf3e0fb3efdacd28398918ee3ada8e",
+    "initial_train_metrics": {
+      "loss": 0.7312622593838044,
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.5,
+      "macro_f1": 0.3333333333333333,
+      "roc_auc": 0.503090625,
+      "pr_auc": 0.5053174640107313,
+      "brier_score": 0.26834920048713684,
+      "sample_count": 800,
+      "class_0_count": 400,
+      "class_1_count": 400,
+      "class_0_precision": 0.5,
+      "class_1_precision": 0.0,
+      "class_0_recall": 1.0,
+      "class_1_recall": 0.0,
+      "class_0_f1": 0.6666666666666666,
+      "class_1_f1": 0.0,
+      "class_0_support": 400,
+      "class_1_support": 400
+    },
+    "initial_validation_metrics": {
+      "loss": 0.7312670401319977,
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.5,
+      "macro_f1": 0.3333333333333333,
+      "roc_auc": 0.50305625,
+      "pr_auc": 0.5065218346294864,
+      "brier_score": 0.26835137605667114,
+      "sample_count": 800,
+      "class_0_count": 400,
+      "class_1_count": 400,
+      "class_0_precision": 0.5,
+      "class_1_precision": 0.0,
+      "class_0_recall": 1.0,
+      "class_1_recall": 0.0,
+      "class_0_f1": 0.6666666666666666,
+      "class_1_f1": 0.0,
+      "class_0_support": 400,
+      "class_1_support": 400
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 0.6982256632584792,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.695422422363595,
+        "gradient_norm": 0.5267504230858042,
+        "temperature": 0.049466390162706375
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.6947372051385733,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932750552124438,
+        "gradient_norm": 0.4370624550546591,
+        "temperature": 0.04893847182393074
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.6956696326916034,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6935878847353181,
+        "gradient_norm": 0.41572045936034274,
+        "temperature": 0.04841618984937668
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.6940910265995905,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932026748825032,
+        "gradient_norm": 0.2895709896603456,
+        "temperature": 0.047899480909109116
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.6951720118522644,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931779453314755,
+        "gradient_norm": 0.32300096177137816,
+        "temperature": 0.047388285398483276
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.6933228832024795,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6936058878336939,
+        "gradient_norm": 0.2058745831824266,
+        "temperature": 0.046882547438144684
+      },
+      {
+        "epoch": 7,
+        "train_loss": 0.6938912639251122,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931721853686355,
+        "gradient_norm": 0.17298383014993027,
+        "temperature": 0.04638220742344856
+      },
+      {
+        "epoch": 8,
+        "train_loss": 0.6935799167706416,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932070324462163,
+        "gradient_norm": 0.23887350009037897,
+        "temperature": 0.04588720574975014
+      },
+      {
+        "epoch": 9,
+        "train_loss": 0.6942609319320092,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932485919625782,
+        "gradient_norm": 0.2587917891975779,
+        "temperature": 0.04539748653769493
+      },
+      {
+        "epoch": 10,
+        "train_loss": 0.6953831039942228,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6943805337957282,
+        "gradient_norm": 0.1890969296487478,
+        "temperature": 0.04491299390792847
+      },
+      {
+        "epoch": 11,
+        "train_loss": 0.6941883563995361,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932683817271456,
+        "gradient_norm": 0.11592820917184536,
+        "temperature": 0.04443367198109627
+      },
+      {
+        "epoch": 12,
+        "train_loss": 0.6935197986089267,
+        "validation_macro_f1": 0.4219277265140074,
+        "validation_loss": 0.6931766574353947,
+        "gradient_norm": 0.07827512353945237,
+        "temperature": 0.04395946487784386
+      },
+      {
+        "epoch": 13,
+        "train_loss": 0.693401391689594,
+        "validation_macro_f1": 0.47270941675070355,
+        "validation_loss": 0.6931671773161772,
+        "gradient_norm": 0.09622603447104876,
+        "temperature": 0.043490320444107056
+      },
+      {
+        "epoch": 14,
+        "train_loss": 0.6933397834117596,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931788140714784,
+        "gradient_norm": 0.06768820900470018,
+        "temperature": 0.04302618280053139
+      },
+      {
+        "epoch": 15,
+        "train_loss": 0.6935998843266413,
+        "validation_macro_f1": 0.4143098740034117,
+        "validation_loss": 0.6931744994902169,
+        "gradient_norm": 0.1103627633733245,
+        "temperature": 0.042566996067762375
+      },
+      {
+        "epoch": 16,
+        "train_loss": 0.6933643176005437,
+        "validation_macro_f1": 0.45909398242055444,
+        "validation_loss": 0.6931656123226237,
+        "gradient_norm": 0.1098809578241064,
+        "temperature": 0.04211271181702614
+      },
+      {
+        "epoch": 17,
+        "train_loss": 0.6934181864445026,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932875616313461,
+        "gradient_norm": 0.09046969641573153,
+        "temperature": 0.0416632741689682
+      },
+      {
+        "epoch": 18,
+        "train_loss": 0.6933192243942847,
+        "validation_macro_f1": 0.4219277265140074,
+        "validation_loss": 0.6931664112159912,
+        "gradient_norm": 0.06749120569572999,
+        "temperature": 0.04121863469481468
+      },
+      {
+        "epoch": 19,
+        "train_loss": 0.693552892941695,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932227647174097,
+        "gradient_norm": 0.07695169336735629,
+        "temperature": 0.040778741240501404
+      },
+      {
+        "epoch": 20,
+        "train_loss": 0.6939279207816491,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932443908476218,
+        "gradient_norm": 0.0927109715457146,
+        "temperature": 0.04034354165196419
+      },
+      {
+        "epoch": 21,
+        "train_loss": 0.6935418890072749,
+        "validation_macro_f1": 0.4143098740034117,
+        "validation_loss": 0.6931697557652942,
+        "gradient_norm": 0.1079078597518114,
+        "temperature": 0.039912983775138855
+      },
+      {
+        "epoch": 22,
+        "train_loss": 0.6943290646259601,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.693305364463255,
+        "gradient_norm": 0.15854357741773129,
+        "temperature": 0.039487022906541824
+      },
+      {
+        "epoch": 23,
+        "train_loss": 0.6945519080528846,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6934582231089905,
+        "gradient_norm": 0.1070542512819744,
+        "temperature": 0.039065610617399216
+      },
+      {
+        "epoch": 24,
+        "train_loss": 0.693656339095189,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932689981846355,
+        "gradient_norm": 0.07296361025566092,
+        "temperature": 0.03864869102835655
+      },
+      {
+        "epoch": 25,
+        "train_loss": 0.6930959958296555,
+        "validation_macro_f1": 0.4129905197968947,
+        "validation_loss": 0.693185688026943,
+        "gradient_norm": 0.08915991504461719,
+        "temperature": 0.03823622316122055
+      },
+      {
+        "epoch": 26,
+        "train_loss": 0.6944330151264484,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6935065989120082,
+        "gradient_norm": 0.08422041569764797,
+        "temperature": 0.03782815858721733
+      },
+      {
+        "epoch": 27,
+        "train_loss": 0.6934588230573214,
+        "validation_macro_f1": 0.45494804973599046,
+        "validation_loss": 0.6931606305770106,
+        "gradient_norm": 0.04296484195555632,
+        "temperature": 0.03742444887757301
+      },
+      {
+        "epoch": 28,
+        "train_loss": 0.6932801695970389,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931629562742543,
+        "gradient_norm": 0.09201878882371463,
+        "temperature": 0.03702504560351372
+      },
+      {
+        "epoch": 29,
+        "train_loss": 0.6934921924884503,
+        "validation_macro_f1": 0.4143098740034117,
+        "validation_loss": 0.693180253770345,
+        "gradient_norm": 0.08992009993212727,
+        "temperature": 0.03662990778684616
+      },
+      {
+        "epoch": 30,
+        "train_loss": 0.6934146789404062,
+        "validation_macro_f1": 0.4701109455207816,
+        "validation_loss": 0.6931596206133994,
+        "gradient_norm": 0.07867555176982513,
+        "temperature": 0.036238983273506165
+      },
+      {
+        "epoch": 31,
+        "train_loss": 0.6930904113329374,
+        "validation_macro_f1": 0.4143098740034117,
+        "validation_loss": 0.693166440150213,
+        "gradient_norm": 0.0632933979997268,
+        "temperature": 0.035852231085300446
+      },
+      {
+        "epoch": 32,
+        "train_loss": 0.693412225980025,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6933055015040804,
+        "gradient_norm": 0.04953763934855278,
+        "temperature": 0.03546961024403572
+      },
+      {
+        "epoch": 33,
+        "train_loss": 0.6934375212742732,
+        "validation_macro_f1": 0.49568495439100807,
+        "validation_loss": 0.6931560564267767,
+        "gradient_norm": 0.0814208249346568,
+        "temperature": 0.03509106859564781
+      },
+      {
+        "epoch": 34,
+        "train_loss": 0.6934253390018756,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931993814049393,
+        "gradient_norm": 0.08210578818733875,
+        "temperature": 0.034716568887233734
+      },
+      {
+        "epoch": 35,
+        "train_loss": 0.693183917265672,
+        "validation_macro_f1": 0.4701109455207816,
+        "validation_loss": 0.6931565135899009,
+        "gradient_norm": 0.054771960426408514,
+        "temperature": 0.034346066415309906
+      },
+      {
+        "epoch": 36,
+        "train_loss": 0.6932438978782067,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931875691797289,
+        "gradient_norm": 0.09539941683984719,
+        "temperature": 0.033979516476392746
+      },
+      {
+        "epoch": 37,
+        "train_loss": 0.6934499236253592,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932553931677284,
+        "gradient_norm": 0.05302747804671526,
+        "temperature": 0.03361687809228897
+      },
+      {
+        "epoch": 38,
+        "train_loss": 0.6934108413182772,
+        "validation_macro_f1": 0.4907183417789208,
+        "validation_loss": 0.6931531143017289,
+        "gradient_norm": 0.046275099667792134,
+        "temperature": 0.033258114010095596
+      },
+      {
+        "epoch": 39,
+        "train_loss": 0.693404536980849,
+        "validation_macro_f1": 0.4701109455207816,
+        "validation_loss": 0.6931546367893244,
+        "gradient_norm": 0.0844742264598608,
+        "temperature": 0.03290317580103874
+      },
+      {
+        "epoch": 40,
+        "train_loss": 0.6932379282437838,
+        "validation_macro_f1": 0.47270941675070355,
+        "validation_loss": 0.6931533241111053,
+        "gradient_norm": 0.08223099032273659,
+        "temperature": 0.032552026212215424
+      },
+      {
+        "epoch": 41,
+        "train_loss": 0.6932785235918485,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932026992752459,
+        "gradient_norm": 0.08572302042291714,
+        "temperature": 0.03220462054014206
+      },
+      {
+        "epoch": 42,
+        "train_loss": 0.6932636728653541,
+        "validation_macro_f1": 0.41165655451369737,
+        "validation_loss": 0.6931649840646128,
+        "gradient_norm": 0.0901080143566315,
+        "temperature": 0.03186092525720596
+      },
+      {
+        "epoch": 43,
+        "train_loss": 0.6935313068903409,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931679357954976,
+        "gradient_norm": 0.08136904125030224,
+        "temperature": 0.03152089938521385
+      },
+      {
+        "epoch": 44,
+        "train_loss": 0.6932960473574125,
+        "validation_macro_f1": 0.49568495439100807,
+        "validation_loss": 0.6931527276531989,
+        "gradient_norm": 0.10032695094839884,
+        "temperature": 0.031184501945972443
+      },
+      {
+        "epoch": 45,
+        "train_loss": 0.6934404235619765,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6933609865692106,
+        "gradient_norm": 0.078964692253906,
+        "temperature": 0.0308516938239336
+      },
+      {
+        "epoch": 46,
+        "train_loss": 0.6933246071522052,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932243781177092,
+        "gradient_norm": 0.07551956814355575,
+        "temperature": 0.030522435903549194
+      },
+      {
+        "epoch": 47,
+        "train_loss": 0.6940076809663039,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932818132955334,
+        "gradient_norm": 0.11204331332387832,
+        "temperature": 0.030196694657206535
+      },
+      {
+        "epoch": 48,
+        "train_loss": 0.6938226498090304,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.693293990456632,
+        "gradient_norm": 0.05703396908938885,
+        "temperature": 0.02987442910671234
+      },
+      {
+        "epoch": 49,
+        "train_loss": 0.6934019143764789,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932323824691211,
+        "gradient_norm": 0.07738441142898339,
+        "temperature": 0.029555601999163628
+      },
+      {
+        "epoch": 50,
+        "train_loss": 0.6932299641462473,
+        "validation_macro_f1": 0.47270941675070355,
+        "validation_loss": 0.6931546908283963,
+        "gradient_norm": 0.05337512464477466,
+        "temperature": 0.02924017794430256
+      },
+      {
+        "epoch": 51,
+        "train_loss": 0.6933346711672269,
+        "validation_macro_f1": 0.49568495439100807,
+        "validation_loss": 0.6931545814593355,
+        "gradient_norm": 0.07335511272629866,
+        "temperature": 0.02892811968922615
+      },
+      {
+        "epoch": 52,
+        "train_loss": 0.693470468887916,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931632024067599,
+        "gradient_norm": 0.07666418228584987,
+        "temperature": 0.028619391843676567
+      },
+      {
+        "epoch": 53,
+        "train_loss": 0.6932698029738206,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931914441184026,
+        "gradient_norm": 0.04607055948760647,
+        "temperature": 0.028313959017395973
+      },
+      {
+        "epoch": 54,
+        "train_loss": 0.6932331690421472,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931893546312804,
+        "gradient_norm": 0.0765696053321545,
+        "temperature": 0.028011785820126534
+      },
+      {
+        "epoch": 55,
+        "train_loss": 0.6934392131291903,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932048732740778,
+        "gradient_norm": 0.06011516830095878,
+        "temperature": 0.027712838724255562
+      },
+      {
+        "epoch": 56,
+        "train_loss": 0.6933057033098661,
+        "validation_macro_f1": 0.49568495439100807,
+        "validation_loss": 0.6931532269220742,
+        "gradient_norm": 0.06834730323260793,
+        "temperature": 0.027417080476880074
+      },
+      {
+        "epoch": 57,
+        "train_loss": 0.6932754379052383,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931618353136966,
+        "gradient_norm": 0.10930490006621067,
+        "temperature": 0.027124479413032532
+      },
+      {
+        "epoch": 58,
+        "train_loss": 0.693460803765517,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932796938064792,
+        "gradient_norm": 0.060212211253551334,
+        "temperature": 0.0268350001424551
+      },
+      {
+        "epoch": 59,
+        "train_loss": 0.6934797121928289,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932265329177639,
+        "gradient_norm": 0.08244782829513916,
+        "temperature": 0.026548611000180244
+      },
+      {
+        "epoch": 60,
+        "train_loss": 0.6935462493162888,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932014185085587,
+        "gradient_norm": 0.06426598267773023,
+        "temperature": 0.026265278458595276
+      },
+      {
+        "epoch": 61,
+        "train_loss": 0.6933102607727051,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931896062339331,
+        "gradient_norm": 0.055602850643201515,
+        "temperature": 0.02598496899008751
+      },
+      {
+        "epoch": 62,
+        "train_loss": 0.6931528403208806,
+        "validation_macro_f1": 0.49834139122473675,
+        "validation_loss": 0.693150288372004,
+        "gradient_norm": 0.058100458019627974,
+        "temperature": 0.025707650929689407
+      },
+      {
+        "epoch": 63,
+        "train_loss": 0.6933176884284387,
+        "validation_macro_f1": 0.4219277265140074,
+        "validation_loss": 0.6931554635314842,
+        "gradient_norm": 0.05971157912594768,
+        "temperature": 0.025433292612433434
+      },
+      {
+        "epoch": 64,
+        "train_loss": 0.6933993376218356,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932169036526556,
+        "gradient_norm": 0.06228603530102051,
+        "temperature": 0.0251618642359972
+      },
+      {
+        "epoch": 65,
+        "train_loss": 0.6933148503303528,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931580739222621,
+        "gradient_norm": 0.0693169325733414,
+        "temperature": 0.02489333041012287
+      },
+      {
+        "epoch": 66,
+        "train_loss": 0.6931602817315322,
+        "validation_macro_f1": 0.4143098740034117,
+        "validation_loss": 0.6931533468731689,
+        "gradient_norm": 0.08560722002473015,
+        "temperature": 0.02462766319513321
+      },
+      {
+        "epoch": 67,
+        "train_loss": 0.6932141276506277,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931776581937364,
+        "gradient_norm": 0.04876763130036684,
+        "temperature": 0.024364830926060677
+      },
+      {
+        "epoch": 68,
+        "train_loss": 0.6933112602967483,
+        "validation_macro_f1": 0.4143098740034117,
+        "validation_loss": 0.6931518160130048,
+        "gradient_norm": 0.06159194136181703,
+        "temperature": 0.024104803800582886
+      },
+      {
+        "epoch": 69,
+        "train_loss": 0.6933032595194303,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931623535551917,
+        "gradient_norm": 0.05053310013877658,
+        "temperature": 0.02384755201637745
+      },
+      {
+        "epoch": 70,
+        "train_loss": 0.6933821623141949,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.693154900988464,
+        "gradient_norm": 0.06599267880217387,
+        "temperature": 0.02359304577112198
+      },
+      {
+        "epoch": 71,
+        "train_loss": 0.6931382050881019,
+        "validation_macro_f1": 0.47270941675070355,
+        "validation_loss": 0.6931480528448758,
+        "gradient_norm": 0.04444071987213997,
+        "temperature": 0.023341255262494087
+      },
+      {
+        "epoch": 72,
+        "train_loss": 0.6932437924238352,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931624501590224,
+        "gradient_norm": 0.05533399624535097,
+        "temperature": 0.023092152550816536
+      },
+      {
+        "epoch": 73,
+        "train_loss": 0.6936877736678491,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931742629436906,
+        "gradient_norm": 0.09621463787670319,
+        "temperature": 0.022845707833766937
+      },
+      {
+        "epoch": 74,
+        "train_loss": 0.6933018794426551,
+        "validation_macro_f1": 0.4990952407786564,
+        "validation_loss": 0.6931482667686635,
+        "gradient_norm": 0.07368254009634256,
+        "temperature": 0.022601893171668053
+      },
+      {
+        "epoch": 75,
+        "train_loss": 0.6932560343008775,
+        "validation_macro_f1": 0.4892617278275747,
+        "validation_loss": 0.6931483606345976,
+        "gradient_norm": 0.06218235817952798,
+        "temperature": 0.022360680624842644
+      },
+      {
+        "epoch": 76,
+        "train_loss": 0.6931217037714444,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931813195237265,
+        "gradient_norm": 0.05353176024240943,
+        "temperature": 0.022122042253613472
+      },
+      {
+        "epoch": 77,
+        "train_loss": 0.6932549201525174,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931772471580815,
+        "gradient_norm": 0.04561200737953186,
+        "temperature": 0.0218859501183033
+      },
+      {
+        "epoch": 78,
+        "train_loss": 0.6933335524338943,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931833003723062,
+        "gradient_norm": 0.07095678723775424,
+        "temperature": 0.021652378141880035
+      },
+      {
+        "epoch": 79,
+        "train_loss": 0.6931994053033682,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.693152878317679,
+        "gradient_norm": 0.05976863549305843,
+        "temperature": 0.021421298384666443
+      },
+      {
+        "epoch": 80,
+        "train_loss": 0.6932456676776593,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931664422171906,
+        "gradient_norm": 0.06485223240004136,
+        "temperature": 0.02119268663227558
+      },
+      {
+        "epoch": 81,
+        "train_loss": 0.6932015419006348,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931778011827996,
+        "gradient_norm": 0.06742563832981083,
+        "temperature": 0.020966513082385063
+      },
+      {
+        "epoch": 82,
+        "train_loss": 0.693356243463663,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931621099261696,
+        "gradient_norm": 0.07014079105395538,
+        "temperature": 0.02074275352060795
+      },
+      {
+        "epoch": 83,
+        "train_loss": 0.6935313710799584,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932357482031622,
+        "gradient_norm": 0.08001976621408875,
+        "temperature": 0.020521381869912148
+      },
+      {
+        "epoch": 84,
+        "train_loss": 0.6931581543042109,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931551283139489,
+        "gradient_norm": 0.05449016813117151,
+        "temperature": 0.02030237205326557
+      },
+      {
+        "epoch": 85,
+        "train_loss": 0.6933870819898752,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931872967274485,
+        "gradient_norm": 0.081133648681526,
+        "temperature": 0.02008570171892643
+      },
+      {
+        "epoch": 86,
+        "train_loss": 0.6934164945895855,
+        "validation_macro_f1": 0.49568495439100807,
+        "validation_loss": 0.6931487600109136,
+        "gradient_norm": 0.10426258195478183,
+        "temperature": 0.019871342927217484
+      },
+      {
+        "epoch": 87,
+        "train_loss": 0.6933226264440097,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.693181807534615,
+        "gradient_norm": 0.04218896173943694,
+        "temperature": 0.019659271463751793
+      },
+      {
+        "epoch": 88,
+        "train_loss": 0.6931874889593858,
+        "validation_macro_f1": 0.4797052530258391,
+        "validation_loss": 0.6931488795090169,
+        "gradient_norm": 0.054977815526609235,
+        "temperature": 0.019449463114142418
+      },
+      {
+        "epoch": 89,
+        "train_loss": 0.6934424363649808,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931960298515604,
+        "gradient_norm": 0.07725119691055554,
+        "temperature": 0.01924189366400242
+      },
+      {
+        "epoch": 90,
+        "train_loss": 0.6931739541200491,
+        "validation_macro_f1": 0.42314902944824206,
+        "validation_loss": 0.6931510226972954,
+        "gradient_norm": 0.030926768865006473,
+        "temperature": 0.019036538898944855
+      },
+      {
+        "epoch": 91,
+        "train_loss": 0.6936417726370004,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6932056565520947,
+        "gradient_norm": 0.089649638089423,
+        "temperature": 0.018833376467227936
+      },
+      {
+        "epoch": 92,
+        "train_loss": 0.6936463300998394,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931957624241456,
+        "gradient_norm": 0.06450467879095903,
+        "temperature": 0.01863238215446472
+      },
+      {
+        "epoch": 93,
+        "train_loss": 0.6932952449871943,
+        "validation_macro_f1": 0.4990952407786564,
+        "validation_loss": 0.6931498270175844,
+        "gradient_norm": 0.05765778850764036,
+        "temperature": 0.01843353360891342
+      },
+      {
+        "epoch": 94,
+        "train_loss": 0.6933739827229426,
+        "validation_macro_f1": 0.49787853681805627,
+        "validation_loss": 0.6931515549953108,
+        "gradient_norm": 0.07570590789859685,
+        "temperature": 0.018236806616187096
+      },
+      {
+        "epoch": 95,
+        "train_loss": 0.6933175508792584,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931545153478806,
+        "gradient_norm": 0.05874467762903525,
+        "temperature": 0.018042178824543953
+      },
+      {
+        "epoch": 96,
+        "train_loss": 0.6932769784560571,
+        "validation_macro_f1": 0.48809500956622454,
+        "validation_loss": 0.6931493676500615,
+        "gradient_norm": 0.0915710053478296,
+        "temperature": 0.017849629744887352
+      },
+      {
+        "epoch": 97,
+        "train_loss": 0.6932654151549706,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931647457385632,
+        "gradient_norm": 0.059944227194556825,
+        "temperature": 0.017659133300185204
+      },
+      {
+        "epoch": 98,
+        "train_loss": 0.6932755754544184,
+        "validation_macro_f1": 0.49568495439100807,
+        "validation_loss": 0.6931483041407338,
+        "gradient_norm": 0.06543467738307439,
+        "temperature": 0.017470670863986015
+      },
+      {
+        "epoch": 99,
+        "train_loss": 0.6933391185907217,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.693168567157364,
+        "gradient_norm": 0.06278654775367333,
+        "temperature": 0.017284220084547997
+      },
+      {
+        "epoch": 100,
+        "train_loss": 0.6932227290593661,
+        "validation_macro_f1": 0.46595104106168933,
+        "validation_loss": 0.693150031636662,
+        "gradient_norm": 0.04996348043473867,
+        "temperature": 0.017099758610129356
+      },
+      {
+        "epoch": 101,
+        "train_loss": 0.6931986671227676,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931502472533251,
+        "gradient_norm": 0.05435772367323247,
+        "temperature": 0.016917267814278603
+      },
+      {
+        "epoch": 102,
+        "train_loss": 0.6933346619972816,
+        "validation_macro_f1": 0.47693273354953447,
+        "validation_loss": 0.6931482752707581,
+        "gradient_norm": 0.0881431437491511,
+        "temperature": 0.016736721619963646
+      },
+      {
+        "epoch": 103,
+        "train_loss": 0.6936768797727731,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931970610456455,
+        "gradient_norm": 0.0833180404196565,
+        "temperature": 0.016558103263378143
+      },
+      {
+        "epoch": 104,
+        "train_loss": 0.693324877665593,
+        "validation_macro_f1": 0.41030781931831584,
+        "validation_loss": 0.6931533587874167,
+        "gradient_norm": 0.0562084809375497,
+        "temperature": 0.016381392255425453
+      },
+      {
+        "epoch": 105,
+        "train_loss": 0.693337408395914,
+        "validation_macro_f1": 0.49568495439100807,
+        "validation_loss": 0.6931483572415424,
+        "gradient_norm": 0.07783339618561932,
+        "temperature": 0.016206566244363785
+      },
+      {
+        "epoch": 106,
+        "train_loss": 0.6931939721107483,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931663834948536,
+        "gradient_norm": 0.05276004062929692,
+        "temperature": 0.016033606603741646
+      },
+      {
+        "epoch": 107,
+        "train_loss": 0.6935608341143682,
+        "validation_macro_f1": 0.4780657115269188,
+        "validation_loss": 0.6931485569505403,
+        "gradient_norm": 0.06579012266145302,
+        "temperature": 0.015862490981817245
+      },
+      {
+        "epoch": 108,
+        "train_loss": 0.6932589457585261,
+        "validation_macro_f1": 0.49568495439100807,
+        "validation_loss": 0.6931477757929109,
+        "gradient_norm": 0.06121009316008825,
+        "temperature": 0.01569320261478424
+      },
+      {
+        "epoch": 109,
+        "train_loss": 0.6932793855667114,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931493022284428,
+        "gradient_norm": 0.07199548971122847,
+        "temperature": 0.015525721944868565
+      },
+      {
+        "epoch": 110,
+        "train_loss": 0.6932152830637418,
+        "validation_macro_f1": 0.4143098740034117,
+        "validation_loss": 0.6931494052820402,
+        "gradient_norm": 0.061186544256857954,
+        "temperature": 0.015360027551651001
+      },
+      {
+        "epoch": 111,
+        "train_loss": 0.6932396430235642,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931608506083208,
+        "gradient_norm": 0.07002576540869015,
+        "temperature": 0.015196101740002632
+      },
+      {
+        "epoch": 112,
+        "train_loss": 0.693456388436831,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.693151403992276,
+        "gradient_norm": 0.08777662080067855,
+        "temperature": 0.015033925883471966
+      },
+      {
+        "epoch": 113,
+        "train_loss": 0.6932224356211149,
+        "validation_macro_f1": 0.4367942327729436,
+        "validation_loss": 0.6931475680437686,
+        "gradient_norm": 0.053281973545941025,
+        "temperature": 0.014873480424284935
+      },
+      {
+        "epoch": 114,
+        "train_loss": 0.6932979684609634,
+        "validation_macro_f1": 0.3333333333333333,
+        "validation_loss": 0.6931600311161016,
+        "gradient_norm": 0.052514312645563714,
+        "temperature": 0.014714746735990047
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "train": "ddd16bb9a88ede2a49752c635eb82138e5be816b30ef26a04a3321e77bcb976f",
+    "validation": "a6a59f08e562a925cb1ec2cc44b1e7a5c0e08df935d2839b7903899736b0406a",
+    "iid_test": "4a987508a0c22e0437ca5f98f1d81ba9bf109760980ae2d543bbaa1645820299",
+    "ood_template_test": "66ca23acb83de48521b79db48dd03ed44093359637a6802ad7a04d3df27960ba",
+    "ood_size_test": "ce9fd97c90d5fd2836b045195a797105c85c46e8d8380ea3e9300ae5f091c6da",
+    "ood_cardinality_test": "3fddf1534a91f7b3ff1f60b75ca46a21012bb198abdc70c64a9c3aa71148d3fb",
+    "ood_composition_test": "26dc997164d07451f6e337509c5bcc8a6691018ca3014ba9f6bf5b6e6571cba8"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "active_source_imports",
+  "command": [
+    "{python}",
+    "-c",
+    "import pkgutil,src; names=[m.name for m in pkgutil.iter_modules(src.__path__)]; [__import__('src.'+n) for n in names]; print('active imports PASS',len(names),sorted(names))"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T15:09:32.207223+00:00",
+  "ended_utc": "2026-07-27T15:09:40.255922+00:00",
+  "runtime_seconds": 8.050866599998699,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\active_source_imports.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\active_source_imports.stderr.log",
+  "status": "PASS"
+}

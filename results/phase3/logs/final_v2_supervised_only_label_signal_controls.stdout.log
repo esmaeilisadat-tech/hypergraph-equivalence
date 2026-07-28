@@ -1,0 +1,16 @@
+{
+  "schema_version": "phase3-label-signal-controls-v2",
+  "status": "PASS",
+  "protocol": "supervised_label_signal_only",
+  "self_supervised_structural_pretraining": false,
+  "reason": "The label-free structural pretraining is disabled so this control isolates whether corrupted supervised labels can produce held-out generalization. The original full-pipeline control is preserved as pretraining-confounded evidence.",
+  "preserved_full_pipeline_control": {
+    "report": "results/phase3/controls/full_pipeline_pretraining_confound_controls.json",
+    "metrics": "results/phase3/controls/full_pipeline_pretraining_confound_metrics.csv",
+    "status": "FAIL",
+    "interpretation": "Not a valid label-only negative control because label-free structural pretraining supplies genuine task signal."
+  },
+  "completed_runs": 10,
+  "failures": [],
+  "metrics_path": "results/phase3/controls/supervised_only_label_signal_control_metrics.csv"
+}

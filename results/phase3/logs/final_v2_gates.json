@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_gates",
+  "command": [
+    "{python}",
+    "-m",
+    "src.run_gates"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T20:03:32.318383+00:00",
+  "ended_utc": "2026-07-27T20:09:15.187708+00:00",
+  "runtime_seconds": 342.8702173999991,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_gates.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_gates.stderr.log",
+  "status": "PASS"
+}

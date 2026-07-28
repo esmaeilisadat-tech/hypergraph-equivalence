@@ -1,0 +1,20 @@
+{
+  "audit_sha256": "a0cb9d44b639d3ec912c9f31bb22821d17fd06403ab1bdab66f7080d60a073f3",
+  "benchmark_version": "learned_benchmark_v1",
+  "locked_before_first_optimization": true,
+  "model_definition_sha256": "6f0e522e7f0d9ee89ea2d3ccdfa16329dbe67b93ac3859a6bb369b4db6fd4eea",
+  "model_config_sha256": "6ae1db337a21af3e07014515c063e5f770cf111e894565bfac8221f711d79690",
+  "training_implementation_sha256": "641d333aa5fcdf0871f357b69a1c0279dddf13e768c2be6c4b00fe4a0a4b4d0e",
+  "locked_utc": "2026-07-27T16:10:32.711693+00:00",
+  "policy": "All split files and hashes are frozen before the first learned-model optimization run. Test splits are evaluation-only and may not guide model or hyperparameter changes.",
+  "schema_version": "phase3-learned-benchmark-lock-v1",
+  "spec_sha256": "f5ecd720d351879ec05e69cdeb5713cec313e03331352a26853fd26b2bd453eb",
+  "split_sha256": {
+    "iid_test": "b3bbdbc6c561c13e1172f70a6d3baa7d413cd44e05695d887942818d1840362f",
+    "ood_size_test": "942598498c1404fa19aa02e741993e369e6ac59ce9dc205bee442f0d2318f413",
+    "ood_template_test": "3a2874d53c4ffe1583341d04db1ee41bece2013c2e947ddc3fd29e60a71558af",
+    "train": "9ffbcd9728ba1412bb3961d79937b7b161a96eb6a09fc06c7dc7954947ad641f",
+    "validation": "c75836e71aa4b9346dc4aee89b13b91c13baa64007ed82cb5845397fe062a794"
+  },
+  "test_data_used_for_model_or_hyperparameter_selection": false
+}

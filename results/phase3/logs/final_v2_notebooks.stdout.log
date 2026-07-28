@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "notebooks": [
+    {
+      "path": "notebooks/Phase3_Research.ipynb",
+      "code_cell_count": 9,
+      "executed_cell_count": 9,
+      "error_output_count": 0,
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/Phase3_Explained_FA.ipynb",
+      "code_cell_count": 9,
+      "executed_cell_count": 9,
+      "error_output_count": 0,
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "audit_sha256": "fd324b49fae7c8d1c52c716784e0cbcb1f2bd7ed688cd1f0c6b184b3de73dd5e",
+  "benchmark_version": "learned_benchmark_v2_final",
+  "applied_policy": "Final v2 split files and hashes were frozen before first final-v2 test evaluation. Candidate development and the disclosed v1 protocol incident used only the preserved v1 benchmark; final-v2 test data did not guide model or hyperparameter selection.",
+  "development_optimization_used_separate_v1_benchmark": true,
+  "locked_before_first_final_test_evaluation": true,
+  "locked_before_first_optimization": false,
+  "locked_utc": "2026-07-27T17:21:23.220085+00:00",
+  "model_config_sha256": "5452142bf2ba17cddbfc3fd5e4f04952a6cc952393aa5ee24143c99d69adc719",
+  "model_definition_sha256": "0010267fdb39783b9842ea66d387847c500141a3f26bb09ca508a57323bbbb35",
+  "policy_as_written_in_spec": "All split files and hashes are frozen before the first learned-model optimization run. Test splits are evaluation-only and may not guide model or hyperparameter changes.",
+  "schema_version": "phase3-learned-benchmark-lock-v1",
+  "spec_sha256": "0663523c92b53c38c4c66e43a68720371ea4e1b3866681eee63e7112aa0c6eb6",
+  "split_sha256": {
+    "iid_test": "260a8f3963b77c36c5e0c6064838bdb2d3042ef85426728c23f6adafde358c4f",
+    "ood_size_test": "58625a95222355f928a04e34e5456fa50535b85299b1ad7bc1827ee1d197b982",
+    "ood_template_test": "e8de47dba98ee788f6658e276d3a85e50c448aa35d5666801b8c31f09b56c322",
+    "train": "6d16657a848ef31e820c597eb585199a0b402ccfac92c247ea33d78664c38edf",
+    "validation": "69bfa5c61be13bf71199cd152f8f5dfe002451fd08e80f282204d00ce9f63ada"
+  },
+  "test_data_used_for_model_or_hyperparameter_selection": false,
+  "training_implementation_sha256": "f16db81d2f7831eb2608ffdfb03c1cf6465467924fe957331c7fb0c8c0bfcbad"
+}

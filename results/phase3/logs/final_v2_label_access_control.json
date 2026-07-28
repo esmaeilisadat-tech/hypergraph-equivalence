@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_label_access_control",
+  "command": [
+    "{python}",
+    "-c",
+    "import json; from src.phase3_controls import run_label_access_control; print(json.dumps(run_label_access_control(), indent=2))"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T17:37:25.652919+00:00",
+  "ended_utc": "2026-07-27T17:37:32.823767+00:00",
+  "runtime_seconds": 7.171972399999504,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_label_access_control.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_label_access_control.stderr.log",
+  "status": "PASS"
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "phase3-learned-model-selection-v1",
+  "selection_data": [
+    "train",
+    "validation"
+  ],
+  "test_data_used_for_final_candidate_selection": false,
+  "selected_candidate": "v5",
+  "selected_seed_for_development": 42,
+  "selection_reason": "First candidate satisfying unchanged Gate C train thresholds and achieving validation accuracy, balanced accuracy, macro F1, and both class recalls of 1.0.",
+  "selected_validation_metrics": {
+    "accuracy": 1.0,
+    "balanced_accuracy": 1.0,
+    "macro_f1": 1.0,
+    "roc_auc": 1.0,
+    "loss": 0.0002557150620533875
+  },
+  "selected_zero_shot_validation_metrics": {
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "macro_f1": 0.3333333333333333,
+    "roc_auc": 0.48593125,
+    "loss": 0.6987511381883685
+  },
+  "candidate_history": [
+    {
+      "candidate": "v1",
+      "status": "FAIL",
+      "validation_accuracy": 0.5,
+      "validation_macro_f1": 0.49568495439100807,
+      "preserved_path": "results/phase3/failed_candidates/learned_matcher_v1_seed42"
+    },
+    {
+      "candidate": "v2",
+      "status": "FAIL",
+      "validation_accuracy": 0.5,
+      "validation_macro_f1": 0.4990952407786564,
+      "preserved_path": "results/phase3/failed_candidates/learned_matcher_v2_seed42"
+    },
+    {
+      "candidate": "v3",
+      "status": "FAIL",
+      "validation_accuracy": 0.6325,
+      "validation_macro_f1": 0.6259327824112068,
+      "preserved_path": "results/phase3/failed_candidates/learned_matcher_v3_seed42"
+    },
+    {
+      "candidate": "v4",
+      "status": "FAIL",
+      "validation_accuracy": 0.77125,
+      "validation_macro_f1": 0.7682513902542112,
+      "preserved_path": "results/phase3/failed_candidates/learned_matcher_v4_seed42"
+    },
+    {
+      "candidate": "v5",
+      "status": "SELECTED",
+      "validation_accuracy": 1.0,
+      "validation_macro_f1": 1.0,
+      "checkpoint": "results/phase3/model_selection/candidate_v5_seed42.pt",
+      "checkpoint_sha256": "647a0750de3664b6f8f53b31d1f7a875e32c8658b326624c0581ece2f915e661"
+    }
+  ],
+  "protocol_incident_and_remedy": {
+    "incident": "The generic v1 failed-candidate runner evaluated all v1 test splits before candidate selection was complete.",
+    "effect": "learned_benchmark_v1 test partitions are development-only and cannot support final claims.",
+    "remedy": "The selected model and training recipe were frozen from train/validation evidence, then new learned_benchmark_v2_final IID, OOD-template, and OOD-size partitions were generated with unseen offsets. Only v2 supports final test claims."
+  },
+  "frozen_definition_hashes": {
+    "model_source_sha256": "0010267fdb39783b9842ea66d387847c500141a3f26bb09ca508a57323bbbb35",
+    "training_source_sha256": "f16db81d2f7831eb2608ffdfb03c1cf6465467924fe957331c7fb0c8c0bfcbad",
+    "model_config_sha256": "5452142bf2ba17cddbfc3fd5e4f04952a6cc952393aa5ee24143c99d69adc719",
+    "selection_spec_sha256": "cd0bcc0185947c62a6d8c202397d15857165771f7fbbc01810d2a40241e73e54"
+  }
+}

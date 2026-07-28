@@ -1,0 +1,17 @@
+{
+  "name": "repository_tests",
+  "command": [
+    "{python}",
+    "-m",
+    "pytest",
+    "-q"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T15:07:03.905641+00:00",
+  "ended_utc": "2026-07-27T15:07:19.487163+00:00",
+  "runtime_seconds": 15.582447000000684,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\repository_tests.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\repository_tests.stderr.log",
+  "status": "PASS"
+}

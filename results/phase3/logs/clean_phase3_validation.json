@@ -1,0 +1,16 @@
+{
+  "name": "clean_phase3_validation",
+  "command": [
+    "{python}",
+    "-m",
+    "src.final_checks"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T15:07:03.910511+00:00",
+  "ended_utc": "2026-07-27T15:07:14.960132+00:00",
+  "runtime_seconds": 11.0510761000005,
+  "return_code": 1,
+  "stdout_path": "results\\phase3\\logs\\clean_phase3_validation.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\clean_phase3_validation.stderr.log",
+  "status": "FAIL"
+}

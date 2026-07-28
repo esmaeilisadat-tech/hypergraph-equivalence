@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_report",
+  "command": [
+    "{python}",
+    "-m",
+    "src.reporting"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-28T00:04:48.884669+00:00",
+  "ended_utc": "2026-07-28T00:04:52.265831+00:00",
+  "runtime_seconds": 3.3823680999994394,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_report.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_report.stderr.log",
+  "status": "PASS"
+}

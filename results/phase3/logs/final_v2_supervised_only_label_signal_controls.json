@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_supervised_only_label_signal_controls",
+  "command": [
+    "{python}",
+    "-m",
+    "src.run_label_signal_controls"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T21:37:30.211156+00:00",
+  "ended_utc": "2026-07-27T23:02:58.919869+00:00",
+  "runtime_seconds": 5128.729064899999,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_supervised_only_label_signal_controls.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_supervised_only_label_signal_controls.stderr.log",
+  "status": "PASS"
+}

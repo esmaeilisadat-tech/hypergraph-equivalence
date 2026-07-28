@@ -1,0 +1,16 @@
+{
+  "name": "notebook_execution_check",
+  "command": [
+    "{python}",
+    "-c",
+    "import json,pathlib; out={}; ok=True; [None for p in [pathlib.Path('notebooks/Phase3_Research.ipynb'),pathlib.Path('notebooks/Phase3_Explained_FA.ipynb')] for n in [json.loads(p.read_text(encoding='utf-8'))] for code in [[c for c in n['cells'] if c['cell_type']=='code']] for errors in [[o for c in code for o in c.get('outputs',[]) if o.get('output_type')=='error']] for executed in [sum(c.get('execution_count') is not None for c in code)] for _ in [out.update({p.name:{'code_cells':len(code),'executed_cells':executed,'error_outputs':len(errors)}})] for __ in [globals().__setitem__('ok',globals()['ok'] and executed==len(code) and not errors)]]; print(json.dumps(out,indent=2)); raise SystemExit(0 if ok else 1)"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-27T15:08:11.352094+00:00",
+  "ended_utc": "2026-07-27T15:08:11.446786+00:00",
+  "runtime_seconds": 0.09604330000001937,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\notebook_execution_check.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\notebook_execution_check.stderr.log",
+  "status": "PASS"
+}

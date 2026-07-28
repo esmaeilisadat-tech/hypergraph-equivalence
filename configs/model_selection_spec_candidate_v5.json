@@ -1,0 +1,143 @@
+{
+  "spec_version": "3.1.0-learned-study",
+  "research_task": "Binary classification of class-2 EE-equivalent but not strongly structurally equivalent incidence stars versus class-3 strongly structurally equivalent incidence stars.",
+  "authoritative_sources": [
+    "AGENTS.md",
+    "CODEX_PHASE3_HANDOFF.md",
+    "Eidi+et+al_2026_J._Phys._Complex._10.1088_2632-072X_ae6f5e.pdf",
+    "phase3_spec.json"
+  ],
+  "primary_model": "LearnedSinkhornMatcher",
+  "primary_model_definition": "Randomly initialized symmetric column-pair encoder, learned row-pair cost, normalized-mass log-domain Sinkhorn coupling, and learned classifier. No fixed L1/Hamming cost or exact oracle output enters the model.",
+  "benchmark_version": "learned_benchmark_v1",
+  "benchmark_lock_policy": "All split files and hashes are frozen before the first learned-model optimization run. Test splits are evaluation-only and may not guide model or hyperparameter changes.",
+  "preserved_deterministic_benchmark": {
+    "version": "deterministic_benchmark_v2",
+    "data_path": "data/deterministic_benchmark_v2/splits",
+    "results_path": "results/deterministic_benchmark_v2/phase3",
+    "interpretation": "Algorithmic exact-equivalence benchmark; not evidence of learned discovery."
+  },
+  "model_roles": {
+    "LearnedSinkhornMatcher": "primary_learned",
+    "MLP_Baseline": "baseline",
+    "NestedDeepSets": "baseline",
+    "BipartiteEncoder": "baseline",
+    "DeterministicDifferentiableMatching": "algorithmic_baseline",
+    "ExactHungarianOracle": "oracle",
+    "FixedL1ResidualSinkhorn": "algorithmic_hybrid",
+    "FixedL1StraightThroughHungarian": "algorithmic_baseline",
+    "LearnedNoSinkhorn": "ablation",
+    "LearnedNoColumnContext": "ablation"
+  },
+  "non_optimized_models": [
+    "DeterministicDifferentiableMatching",
+    "ExactHungarianOracle",
+    "FixedL1ResidualSinkhorn",
+    "FixedL1StraightThroughHungarian"
+  ],
+  "seeds": [
+    42,
+    100,
+    2026,
+    777,
+    999
+  ],
+  "splits": {
+    "train": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [5, 10],
+      "m_range": [5, 12],
+      "switch_range": [1, 4]
+    },
+    "validation": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [5, 10],
+      "m_range": [5, 12],
+      "switch_range": [1, 4]
+    },
+    "iid_test": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [5, 10],
+      "m_range": [5, 12],
+      "switch_range": [1, 4]
+    },
+    "ood_template_test": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [5, 10],
+      "m_range": [5, 12],
+      "switch_range": [5, 8]
+    },
+    "ood_size_test": {
+      "samples": 400,
+      "pairs": 200,
+      "k_range": [12, 20],
+      "m_range": [15, 30],
+      "switch_range": [1, 4]
+    }
+  },
+  "gate_a": {
+    "oracle_accuracy": 1.0,
+    "coupling_total_mass": 1.0,
+    "structural_tolerance": 1e-8,
+    "sinkhorn_iterations": 500
+  },
+  "gate_b": {
+    "samples": 64,
+    "class2_samples": 32,
+    "class3_samples": 32,
+    "accuracy_threshold": 0.99,
+    "macro_f1_threshold": 0.99,
+    "per_class_f1_threshold": 0.98,
+    "epochs": 300
+  },
+  "gate_c": {
+    "train_accuracy_threshold": 0.95,
+    "train_balanced_accuracy_threshold": 0.95,
+    "train_macro_f1_threshold": 0.95,
+    "train_min_class_recall_threshold": 0.9,
+    "checkpoint_selection": "validation_macro_f1_then_validation_loss"
+  },
+  "training": {
+    "max_epochs": 200,
+    "patience": 50,
+    "batch_size": 64,
+    "learning_rate": 0.003,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0,
+    "pairwise_ranking_loss_weight": 1.0,
+    "pairwise_ranking_margin": 0.5,
+    "self_supervised_cost_pretraining_epochs": 30,
+    "self_supervised_cost_pretraining_learning_rate": 0.005,
+    "self_supervised_cost_pretraining_rows_per_k": 1024,
+    "tau_start": 0.05,
+    "tau_final": 0.01,
+    "train_sinkhorn_iterations": 30,
+    "eval_sinkhorn_iterations": 100,
+    "audit_sinkhorn_iterations": 500,
+    "threshold": 0.5,
+    "validation_frequency_epochs": 1
+  },
+  "controls": {
+    "zero_shot_primary_accuracy_min": 0.35,
+    "zero_shot_primary_accuracy_max": 0.65,
+    "minimum_primary_train_accuracy_improvement": 0.3,
+    "shuffled_label_test_accuracy_max": 0.65,
+    "random_label_test_accuracy_max": 0.65,
+    "label_access_expected_accuracy": 1.0
+  },
+  "numerical_audit": {
+    "dtype": "float64",
+    "structural_tolerance": 1e-8,
+    "acceptance_ceiling": 1e-6,
+    "marginal_tolerance": 1e-8,
+    "splits": [
+      "iid_test",
+      "ood_template_test",
+      "ood_size_test"
+    ]
+  }
+}

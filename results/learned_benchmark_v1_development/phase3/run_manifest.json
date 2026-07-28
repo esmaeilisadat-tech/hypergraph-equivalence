@@ -1,0 +1,316 @@
+{
+  "schema_version": "phase3-run-manifest-v2",
+  "generated_utc": "2026-07-27T15:12:49.013240+00:00",
+  "branch": "codex-phase3-final",
+  "baseline_commit": "119343d0ad758f8c4a78d3831e8727d37255a3be",
+  "git_status": "M CODEX_PHASE3_STATUS.md\n D Phase3_Explained_FA.ipynb\n D Phase3_Explained_FA.nbconvert.ipynb\n D Phase3_Research.ipynb\n D Phase3_Research.nbconvert.ipynb\n D ZCODE_HANDOFF_PROMPT.md\n D create_mvp.py\n D create_nb.py\n M data/splits/iid_test.json\n M data/splits/ood_size_test.json\n M data/splits/ood_template_test.json\n M data/splits/train.json\n M data/splits/validation.json\n D fix_nb.py\n D gate_output.txt\n D gate_output_unbuffered.txt\n D results.txt\n M results/phase3/model_configs/BipartiteEncoder_config.json\n M results/phase3/model_configs/LearnedCostSinkhorn_config.json\n M results/phase3/model_configs/MLP_Baseline_config.json\n M results/phase3/model_configs/MatchingNetwork_config.json\n M results/phase3/model_configs/NestedDeepSets_config.json\n M results/phase3/model_configs/NoSinkhorn_config.json\n M results/phase3/model_configs/StraightThroughHungarian_config.json\n M results/phase3/model_configs/final_model_config.json\n D run_output.log\n M src/audit_model_numerics.py\n M src/audit_splits.py\n D src/binary_dataset.py\n M src/config_manager.py\n D src/curvature.py\n D src/dataset.py\n M src/differentiable_matching.py\n D src/experiments.py\n D src/final_artifact_manifest.py\n D src/generate_architecture.py\n D src/generate_manifests.py\n M src/generate_phase3_datasets.py\n D src/generate_phase3_figures.py\n D src/incidence_star_model.py\n D src/models.py\n M src/phase3_experiments.py\n M src/rebuild_notebooks.py\n D src/run_diagnostic.py\n D src/run_phase3_5seed.py\n D src/run_phase3_analysis.py\n D src/run_phase3_final.py\n D src/run_phase3_gates.py\n D src/sinkhorn_audit.py\n D src/sinkhorn_speed_test.py\n D src/update_notebooks.py\n D src/verify_phase3.py\n D tests/test_class2_class3_labels.py\n D tests/test_curvature_properties.py\n D tests/test_model_invariances.py\n D tests/test_ood_template_split.py\n D tests/test_permutation_invariance.py\n?? configs/\n?? docs/\n?? notebooks/\n?? phase3_spec.json\n?? pytest.ini\n?? requirements.txt\n?? results/phase3/aggregate_metrics.csv\n?? results/phase3/checkpoint_roundtrip.json\n?? results/phase3/checkpoints/\n?? results/phase3/final_artifact_manifest.json\n?? results/phase3/final_validation_report.md\n?? results/phase3/gate_a_predictions.csv\n?? results/phase3/gate_a_report.json\n?? results/phase3/gate_b_report.json\n?? results/phase3/gate_c_report.json\n?? results/phase3/logs/active_source_imports.json\n?? results/phase3/logs/active_source_imports.stderr.log\n?? results/phase3/logs/active_source_imports.stdout.log\n?? results/phase3/logs/active_source_tests.json\n?? results/phase3/logs/active_source_tests.stderr.log\n?? results/phase3/logs/active_source_tests.stdout.log\n?? results/phase3/logs/clean_phase3_validation.json\n?? results/phase3/logs/clean_phase3_validation.stderr.log\n?? results/phase3/logs/clean_phase3_validation.stdout.log\n?? results/phase3/logs/clean_phase3_validation_retry.json\n?? results/phase3/logs/clean_phase3_validation_retry.stderr.log\n?? results/phase3/logs/clean_phase3_validation_retry.stdout.log\n?? results/phase3/logs/final_zip_verification.json\n?? results/phase3/logs/final_zip_verification.stderr.log\n?? results/phase3/logs/final_zip_verification.stdout.log\n?? results/phase3/logs/gate_evidence_validation.json\n?? results/phase3/logs/gate_evidence_validation.stderr.log\n?? results/phase3/logs/gate_evidence_validation.stdout.log\n?? results/phase3/logs/import_checks.json\n?? results/phase3/logs/import_checks.stderr.log\n?? results/phase3/logs/import_checks.stdout.log\n?? results/phase3/logs/manifest_hash_verification.json\n?? results/phase3/logs/manifest_hash_verification.stderr.log\n?? results/phase3/logs/manifest_hash_verification.stdout.log\n?? results/phase3/logs/notebook_execution_check.json\n?? results/phase3/logs/notebook_execution_check.stderr.log\n?? results/phase3/logs/notebook_execution_check.stdout.log\n?? results/phase3/logs/numerical_audit_evidence.json\n?? results/phase3/logs/numerical_audit_evidence.stderr.log\n?? results/phase3/logs/numerical_audit_evidence.stdout.log\n?? results/phase3/logs/report_consistency.json\n?? results/phase3/logs/report_consistency.stderr.log\n?? results/phase3/logs/report_consistency.stdout.log\n?? results/phase3/logs/repository_tests.json\n?? results/phase3/logs/repository_tests.stderr.log\n?? results/phase3/logs/repository_tests.stdout.log\n?? results/phase3/logs/split_integrity_audit.json\n?? results/phase3/logs/split_integrity_audit.stderr.log\n?? results/phase3/logs/split_integrity_audit.stdout.log\n?? results/phase3/numerical_audit.json\n?? results/phase3/per_seed_metrics.csv\n?? results/phase3/predictions/\n?? results/phase3/report_consistency.json\n?? results/phase3/run_manifest.json\n?? results/phase3/split_overlap_audit.json\n?? results/phase3/splits_hashes.json\n?? src/__init__.py\n?? src/artifacts.py\n?? src/final_checks.py\n?? src/logged_command.py\n?? src/phase3_data.py\n?? src/reporting.py\n?? tests/test_phase3_contract.py",
+  "archive_path": "results/phase3_archive/20260727_102315",
+  "primary_model": "MatchingNetwork",
+  "model_roles": {
+    "MLP_Baseline": "baseline",
+    "NestedDeepSets": "baseline",
+    "BipartiteEncoder": "baseline",
+    "MatchingNetwork": "primary",
+    "LearnedCostSinkhorn": "ablation",
+    "StraightThroughHungarian": "ablation",
+    "NoSinkhorn": "ablation"
+  },
+  "seeds": [
+    42,
+    100,
+    2026,
+    777,
+    999
+  ],
+  "splits": {
+    "train": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [
+        5,
+        10
+      ],
+      "m_range": [
+        5,
+        12
+      ],
+      "switches": 1
+    },
+    "validation": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [
+        5,
+        10
+      ],
+      "m_range": [
+        5,
+        12
+      ],
+      "switches": 1
+    },
+    "iid_test": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [
+        5,
+        10
+      ],
+      "m_range": [
+        5,
+        12
+      ],
+      "switches": 1
+    },
+    "ood_template_test": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [
+        5,
+        10
+      ],
+      "m_range": [
+        5,
+        12
+      ],
+      "switches": 3
+    },
+    "ood_size_test": {
+      "samples": 400,
+      "pairs": 200,
+      "k_range": [
+        12,
+        20
+      ],
+      "m_range": [
+        15,
+        30
+      ],
+      "switches": 1
+    }
+  },
+  "python": {
+    "executable": "python.exe",
+    "version": "3.11.15",
+    "platform": "Windows-10-10.0.26200-SP0"
+  },
+  "torch": {
+    "version": "2.12.1+cpu",
+    "device": "cpu",
+    "cuda_available": false
+  },
+  "commands": [
+    {
+      "name": "active_source_imports",
+      "command": [
+        "{python}",
+        "-c",
+        "import pkgutil,src; names=[m.name for m in pkgutil.iter_modules(src.__path__)]; [__import__('src.'+n) for n in names]; print('active imports PASS',len(names),sorted(names))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:09:32.207223+00:00",
+      "ended_utc": "2026-07-27T15:09:40.255922+00:00",
+      "runtime_seconds": 8.050866599998699,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\active_source_imports.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\active_source_imports.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "active_source_tests",
+      "command": [
+        "{python}",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:09:32.211402+00:00",
+      "ended_utc": "2026-07-27T15:09:54.355998+00:00",
+      "runtime_seconds": 22.146505299999262,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\active_source_tests.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\active_source_tests.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "clean_phase3_validation",
+      "command": [
+        "{python}",
+        "-m",
+        "src.final_checks"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:03.910511+00:00",
+      "ended_utc": "2026-07-27T15:07:14.960132+00:00",
+      "runtime_seconds": 11.0510761000005,
+      "return_code": 1,
+      "stdout_path": "results\\phase3\\logs\\clean_phase3_validation.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\clean_phase3_validation.stderr.log",
+      "status": "FAIL"
+    },
+    {
+      "name": "clean_phase3_validation_retry",
+      "command": [
+        "{python}",
+        "-m",
+        "src.final_checks"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:50.881061+00:00",
+      "ended_utc": "2026-07-27T15:08:01.569968+00:00",
+      "runtime_seconds": 10.690573299998505,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\clean_phase3_validation_retry.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\clean_phase3_validation_retry.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_zip_verification",
+      "command": [
+        "{python}",
+        "-c",
+        "from src.artifacts import verify_zip; import json; r=verify_zip(); print(json.dumps(r,indent=2)); raise SystemExit(0 if r['status']=='PASS' else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:11:23.626133+00:00",
+      "ended_utc": "2026-07-27T15:11:36.025403+00:00",
+      "runtime_seconds": 12.400304200000392,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_zip_verification.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_zip_verification.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "gate_evidence_validation",
+      "command": [
+        "{python}",
+        "-c",
+        "import json,pathlib; p=pathlib.Path('results/phase3'); names=['gate_a_report.json','gate_b_report.json','gate_c_report.json','checkpoint_roundtrip.json']; rows={n:json.loads((p/n).read_text())['status'] for n in names}; print(json.dumps(rows,indent=2)); raise SystemExit(0 if all(v=='PASS' for v in rows.values()) else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:50.855701+00:00",
+      "ended_utc": "2026-07-27T15:07:50.965805+00:00",
+      "runtime_seconds": 0.11096370000086608,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\gate_evidence_validation.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\gate_evidence_validation.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "import_checks",
+      "command": [
+        "{python}",
+        "-c",
+        "import src.phase3_data,src.differentiable_matching,src.phase3_experiments,src.audit_model_numerics,src.reporting,src.artifacts; print('import checks PASS')"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:03.910511+00:00",
+      "ended_utc": "2026-07-27T15:07:08.635252+00:00",
+      "runtime_seconds": 4.726563000000169,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\import_checks.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\import_checks.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "manifest_hash_verification",
+      "command": [
+        "{python}",
+        "-c",
+        "from src.artifacts import verify_manifest; import json; r=verify_manifest(); print(json.dumps(r,indent=2)); raise SystemExit(0 if r['status']=='PASS' else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:11:23.603307+00:00",
+      "ended_utc": "2026-07-27T15:11:27.215862+00:00",
+      "runtime_seconds": 3.614308500000334,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\manifest_hash_verification.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\manifest_hash_verification.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "notebook_execution_check",
+      "command": [
+        "{python}",
+        "-c",
+        "import json,pathlib; out={}; ok=True; [None for p in [pathlib.Path('notebooks/Phase3_Research.ipynb'),pathlib.Path('notebooks/Phase3_Explained_FA.ipynb')] for n in [json.loads(p.read_text(encoding='utf-8'))] for code in [[c for c in n['cells'] if c['cell_type']=='code']] for errors in [[o for c in code for o in c.get('outputs',[]) if o.get('output_type')=='error']] for executed in [sum(c.get('execution_count') is not None for c in code)] for _ in [out.update({p.name:{'code_cells':len(code),'executed_cells':executed,'error_outputs':len(errors)}})] for __ in [globals().__setitem__('ok',globals()['ok'] and executed==len(code) and not errors)]]; print(json.dumps(out,indent=2)); raise SystemExit(0 if ok else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:08:11.352094+00:00",
+      "ended_utc": "2026-07-27T15:08:11.446786+00:00",
+      "runtime_seconds": 0.09604330000001937,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\notebook_execution_check.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\notebook_execution_check.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "numerical_audit_evidence",
+      "command": [
+        "{python}",
+        "-c",
+        "import json,pathlib; r=json.loads(pathlib.Path('results/phase3/numerical_audit.json').read_text()); print(json.dumps({'status':r['status'],'audited_sample_count':r['audited_sample_count'],'failed_sample_count':r['failed_sample_count'],'sinkhorn_iterations':r['sinkhorn_iterations']},indent=2)); raise SystemExit(0 if r['status']=='PASS' and r['failed_sample_count']==0 else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:50.931175+00:00",
+      "ended_utc": "2026-07-27T15:07:51.041108+00:00",
+      "runtime_seconds": 0.11105049999969197,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\numerical_audit_evidence.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\numerical_audit_evidence.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "report_consistency",
+      "command": [
+        "{python}",
+        "-c",
+        "from src.reporting import verify_report_consistency; import json; r=verify_report_consistency(); print(json.dumps(r,indent=2)); raise SystemExit(0 if r['status']=='PASS' else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:50.873729+00:00",
+      "ended_utc": "2026-07-27T15:07:55.405554+00:00",
+      "runtime_seconds": 4.53265630000169,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\report_consistency.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\report_consistency.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "repository_tests",
+      "command": [
+        "{python}",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:03.905641+00:00",
+      "ended_utc": "2026-07-27T15:07:19.487163+00:00",
+      "runtime_seconds": 15.582447000000684,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\repository_tests.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\repository_tests.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "split_integrity_audit",
+      "command": [
+        "{python}",
+        "-m",
+        "src.audit_splits"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:03.911519+00:00",
+      "ended_utc": "2026-07-27T15:07:26.049604+00:00",
+      "runtime_seconds": 22.14053260000219,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\split_integrity_audit.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\split_integrity_audit.stderr.log",
+      "status": "PASS"
+    }
+  ],
+  "completed_checkpoint_count": 35,
+  "completed_prediction_count": 175
+}
