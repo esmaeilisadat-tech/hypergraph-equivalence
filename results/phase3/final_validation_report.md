@@ -273,10 +273,16 @@ incident-row permutations, and joint neighbor-column permutations.
 
 ## Reproduction and evidence
 
-Branch `codex-phase3-final`; current source commit `119343d0ad758f8c4a78d3831e8727d37255a3be`; Python
+Branch `codex-phase3-final`; current source commit `8425f6c780ad611f2502dd7f3e57119a07f07ee0`; Python
 `3.11.15`; PyTorch `2.12.1+cpu` on CPU. The
 pre-correction archive is
 `results/phase3_archive/20260727T160053Z_independent_audit_corrections`.
+`results/phase3/fresh_environment_validation.json` records a genuinely new
+temporary virtual environment: clean dependency installation, extracted-ZIP
+CRC and 2,002 manifest hashes, imports, 7 repository tests, deterministic
+split audit, zero-shot smoke accuracy 0.5, 800-sample checkpoint inference,
+210 report metrics, and frozen-evidence checks all returned code 0; the
+temporary environment was removed afterward.
 Primary evidence is in `per_seed_metrics.csv`, `aggregate_metrics.csv`,
 `checkpoints/`, `predictions/`, the gate/control/audit JSON files, both
 clean-executed notebooks, logged commands, and the post-commit manifests.

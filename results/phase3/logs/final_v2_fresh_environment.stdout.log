@@ -1,0 +1,168 @@
+{
+  "schema_version": "phase3-fresh-environment-validation-v1",
+  "status": "PASS",
+  "genuinely_new_temporary_virtual_environment": true,
+  "environment_removed_after_validation": true,
+  "zip_path": "results/phase3/phase3_reproducible.zip",
+  "steps": [
+    {
+      "name": "create_venv",
+      "command": [
+        "C:\\Users\\esmae\\Documents\\Educx Kurs machine lerning\\aufgabe\\.venv\\Scripts\\python.exe",
+        "-m",
+        "venv",
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv"
+      ],
+      "working_directory": "C:\\Users\\esmae\\Documents\\Educx Kurs machine lerning\\aufgabe\\marzieh\\hypergraph_equivalence",
+      "started_utc": "2026-07-28T00:09:49.731539+00:00",
+      "ended_utc": "2026-07-28T00:10:04.177330+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/create_venv.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/create_venv.stderr.log"
+    },
+    {
+      "name": "clean_install",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "install",
+        "--disable-pip-version-check",
+        "--requirement",
+        "C:\\Users\\esmae\\Documents\\Educx Kurs machine lerning\\aufgabe\\marzieh\\hypergraph_equivalence\\requirements.txt"
+      ],
+      "working_directory": "C:\\Users\\esmae\\Documents\\Educx Kurs machine lerning\\aufgabe\\marzieh\\hypergraph_equivalence",
+      "started_utc": "2026-07-28T00:10:04.179835+00:00",
+      "ended_utc": "2026-07-28T00:13:12.736624+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/clean_install.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/clean_install.stderr.log"
+    },
+    {
+      "name": "extract_and_verify_zip",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-c",
+        "import hashlib,json,pathlib,sys,zipfile;z=pathlib.Path(sys.argv[1]);d=pathlib.Path(sys.argv[2]);a=zipfile.ZipFile(z);assert a.testzip() is None;a.extractall(d);m=json.loads((d/'results/phase3/final_artifact_manifest.json').read_text(encoding='utf-8'));bad=[e['path'] for e in m['entries'] if hashlib.sha256((d/e['path']).read_bytes()).hexdigest()!=e['sha256']];assert not bad,bad;print('ZIP CRC, extraction, and manifest hashes PASS',len(m['entries']))",
+        "C:\\Users\\esmae\\Documents\\Educx Kurs machine lerning\\aufgabe\\marzieh\\hypergraph_equivalence\\results\\phase3\\phase3_reproducible.zip",
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\extracted"
+      ],
+      "working_directory": "C:\\Users\\esmae\\Documents\\Educx Kurs machine lerning\\aufgabe\\marzieh\\hypergraph_equivalence",
+      "started_utc": "2026-07-28T00:13:12.737623+00:00",
+      "ended_utc": "2026-07-28T00:13:31.021981+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/extract_and_verify_zip.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/extract_and_verify_zip.stderr.log"
+    },
+    {
+      "name": "import_checks",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-c",
+        "import torch,numpy,pandas,scipy,sklearn,networkx,nbformat,nbclient;import src.phase3_data,src.differentiable_matching,src.phase3_experiments,src.audit_model_numerics,src.reporting;print('fresh imports PASS')"
+      ],
+      "working_directory": "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\extracted",
+      "started_utc": "2026-07-28T00:13:31.036936+00:00",
+      "ended_utc": "2026-07-28T00:13:41.006850+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/import_checks.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/import_checks.stderr.log"
+    },
+    {
+      "name": "repository_tests",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "working_directory": "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\extracted",
+      "started_utc": "2026-07-28T00:13:41.007855+00:00",
+      "ended_utc": "2026-07-28T00:13:52.745174+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/repository_tests.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/repository_tests.stderr.log"
+    },
+    {
+      "name": "deterministic_split_audit",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-m",
+        "src.audit_splits"
+      ],
+      "working_directory": "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\extracted",
+      "started_utc": "2026-07-28T00:13:52.746676+00:00",
+      "ended_utc": "2026-07-28T00:14:09.305261+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/deterministic_split_audit.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/deterministic_split_audit.stderr.log"
+    },
+    {
+      "name": "zero_shot_primary_smoke",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-c",
+        "from src.phase3_data import load_splits;from src.config_manager import load_config;from src.differentiable_matching import initialize_model;from src.phase3_experiments import predict,set_seed;set_seed(42);m=initialize_model(load_config('LearnedSinkhornMatcher'));s=load_splits(['iid_test'])['iid_test'];y,p=predict(m,s);a=float(((p>=.5)==y).mean());assert .35<=a<=.65,a;print('zero-shot accuracy',a)"
+      ],
+      "working_directory": "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\extracted",
+      "started_utc": "2026-07-28T00:14:09.306261+00:00",
+      "ended_utc": "2026-07-28T00:14:16.182865+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/zero_shot_primary_smoke.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/zero_shot_primary_smoke.stderr.log"
+    },
+    {
+      "name": "checkpoint_inference",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-c",
+        "import numpy as np,pandas as pd,torch;from pathlib import Path;from src.phase3_data import load_splits;from src.differentiable_matching import initialize_model;from src.phase3_experiments import predict;r=Path('results/phase3');q=torch.load(r/'checkpoints/LearnedSinkhornMatcher_seed42.pt',map_location='cpu',weights_only=False);m=initialize_model(q['model_config']);m.load_state_dict(q['state_dict']);s=load_splits(['iid_test'])['iid_test'];y,p=predict(m,s);saved=pd.read_csv(r/'predictions/LearnedSinkhornMatcher_seed42_iid_test.csv');assert np.max(np.abs(p-saved.probability.to_numpy()))<1e-7;print('checkpoint inference PASS',len(p))"
+      ],
+      "working_directory": "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\extracted",
+      "started_utc": "2026-07-28T00:14:16.183866+00:00",
+      "ended_utc": "2026-07-28T00:14:21.662968+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/checkpoint_inference.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/checkpoint_inference.stderr.log"
+    },
+    {
+      "name": "report_metric_consistency",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-c",
+        "from src.reporting import verify_report_consistency;r=verify_report_consistency();assert r['status']=='PASS',r;print(r)"
+      ],
+      "working_directory": "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\extracted",
+      "started_utc": "2026-07-28T00:14:21.664966+00:00",
+      "ended_utc": "2026-07-28T00:14:24.328655+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/report_metric_consistency.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/report_metric_consistency.stderr.log"
+    },
+    {
+      "name": "frozen_evidence_checks",
+      "command": [
+        "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\venv\\Scripts\\python.exe",
+        "-m",
+        "src.final_checks"
+      ],
+      "working_directory": "C:\\Users\\esmae\\AppData\\Local\\Temp\\phase3_fresh_env_dj1fu3yq\\extracted",
+      "started_utc": "2026-07-28T00:14:24.330780+00:00",
+      "ended_utc": "2026-07-28T00:14:28.888537+00:00",
+      "return_code": 0,
+      "status": "PASS",
+      "stdout_path": "results/phase3/logs/fresh_environment_steps/frozen_evidence_checks.stdout.log",
+      "stderr_path": "results/phase3/logs/fresh_environment_steps/frozen_evidence_checks.stderr.log"
+    }
+  ],
+  "error": null
+}

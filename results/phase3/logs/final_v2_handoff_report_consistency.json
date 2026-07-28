@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_handoff_report_consistency",
+  "command": [
+    "{python}",
+    "-c",
+    "from src.reporting import verify_report_consistency; import json; r=verify_report_consistency(); print(json.dumps(r,indent=2)); raise SystemExit(0 if r['status']=='PASS' else 1)"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-28T00:18:27.861296+00:00",
+  "ended_utc": "2026-07-28T00:18:30.805221+00:00",
+  "runtime_seconds": 2.9451957999990555,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_handoff_report_consistency.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_handoff_report_consistency.stderr.log",
+  "status": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "final_v2_handoff_final_checks",
+  "command": [
+    "{python}",
+    "-m",
+    "src.final_checks"
+  ],
+  "working_directory": ".",
+  "started_utc": "2026-07-28T00:18:36.896713+00:00",
+  "ended_utc": "2026-07-28T00:18:43.333295+00:00",
+  "runtime_seconds": 6.4373724999968545,
+  "return_code": 0,
+  "stdout_path": "results\\phase3\\logs\\final_v2_handoff_final_checks.stdout.log",
+  "stderr_path": "results\\phase3\\logs\\final_v2_handoff_final_checks.stderr.log",
+  "status": "PASS"
+}
