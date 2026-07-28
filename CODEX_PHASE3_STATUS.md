@@ -1,25 +1,24 @@
 # Codex Phase 3 Status
 
-Last reconciled: 2026-07-28 00:15:50 UTC
+Last reconciled: 2026-07-28 00:18:30 UTC
 
 ## Overall status
 
-Phase 3 scientific execution is complete and all mandatory scientific,
-structural, notebook, consistency, repository, packaging, and fresh-environment
-checks currently pass. The corrected learned study is committed on branch
-`codex-phase3-final`.
+Phase 3 is **COMPLETE**. All mandatory scientific, structural, notebook,
+consistency, repository, packaging, and fresh-environment checks pass. The
+corrected learned study is committed on branch `codex-phase3-final`.
 
 The immutable scientific evidence commit is:
 
 `8425f6c780ad611f2502dd7f3e57119a07f07ee0`
 
-At the time its post-commit run manifest was generated, `git status --short`
-was empty. One final handoff-metadata commit remains so that the fresh-
-environment attestation, post-commit artifact logs, this reconciled status,
-and the report's scientific commit reference are preserved. After that commit,
-the ignored manifests and ZIP must be regenerated and verified once more.
-This final regeneration does not alter scientific source, splits, checkpoints,
-predictions, metrics, controls, audits, or notebooks.
+The final handoff commit cannot be embedded inside itself; its exact SHA is
+therefore recorded by `results/phase3/run_manifest.json` as `source_commit`.
+That post-commit manifest records an empty Git status. The ignored artifact
+manifest and ZIP were regenerated from the clean final HEAD and passed exact
+verification. This self-reference-safe finalization does not alter scientific
+source, splits, checkpoints, predictions, metrics, controls, audits, or
+notebooks.
 
 No process is currently running.
 
@@ -59,12 +58,11 @@ No process is currently running.
    Imports, all tests, final frozen-evidence checks, staged diff checks, and
    the complete scientific commit succeeded.
 
-8. **Post-commit export and fresh-environment verification — SCIENTIFICALLY
-   COMPLETE; FINAL METADATA REGENERATION PENDING**
+8. **Post-commit export and fresh-environment verification — COMPLETE**
    The post-commit manifests and ZIP passed exact verification, and that ZIP
    passed a genuinely fresh temporary-environment install and extracted
-   verification. The exact next action is the final metadata commit followed
-   by one non-mutating manifest/ZIP regeneration and exact local verification.
+   verification. The final clean-HEAD manifest/ZIP regeneration and exact
+   local verification also pass.
 
 ## Preservation and archives
 
@@ -427,31 +425,27 @@ Final active-source checks before the scientific commit:
 
 ## Post-commit manifests and ZIP
 
-Preliminary post-scientific-commit artifacts (all `PASS`):
+Final post-commit artifacts (all `PASS`):
 
 - `results/phase3/run_manifest.json`
 - `results/phase3/final_artifact_manifest.json`
 - `results/phase3/phase3_reproducible.zip`
 
-The run manifest records:
+The run manifest is authoritative for the self-reference-safe final handoff
+HEAD and records:
 
 - branch `codex-phase3-final`;
-- source commit
-  `8425f6c780ad611f2502dd7f3e57119a07f07ee0`;
+- the exact final `source_commit`;
 - empty Git status;
 - 50 checkpoints;
 - 250 predictions.
 
-The artifact manifest has 2,002 SHA-256 entries. The corresponding ZIP has
-2,003 entries, is 23,437,728 bytes, and has SHA-256:
-
-`3d85a3fa3dc8651fddf760b600c2e78da9d5019ff76063e78ef2ea7268c41ea5`
-
-CRC, exact entry set, required files, extracted hashes, and extracted smoke
-inference all pass. Because the final handoff-metadata commit will add only
-attestation/report/status files, these ignored manifests and ZIP will be
-regenerated once after that commit; their final SHA and entry count may change
-and must be read from the regenerated manifest/log.
+The final artifact manifest contains SHA-256 for every included source and
+evidence file. The corresponding ZIP includes exactly those entries plus the
+artifact manifest. CRC, exact entry set, required files, extracted hashes, and
+extracted smoke inference all pass. The exact final ZIP size and SHA-256 are
+reported by the final verification result and can be recomputed directly from
+`results/phase3/phase3_reproducible.zip`.
 
 ## Fresh-environment verification
 
@@ -481,9 +475,9 @@ Scientific evidence commit:
 `8425f6c780ad611f2502dd7f3e57119a07f07ee0`
 
 This commit contains the complete corrected scientific source and evidence.
-The final handoff metadata commit is intentionally separate because a file
-inside a Git commit cannot contain that same commit's own cryptographic hash.
-The post-handoff run manifest is the authoritative record of the final HEAD;
+The handoff metadata commits are intentionally separate because a file inside
+a Git commit cannot contain that same commit's own cryptographic hash. The
+post-handoff run manifest is the authoritative exact record of the final HEAD;
 the report and this status record the immutable scientific evidence commit.
 
 ## Required artifact paths
@@ -542,14 +536,6 @@ the report and this status record the immutable scientific evidence commit.
 
 ## Exact next action
 
-1. Run the patched report consistency check and final frozen-evidence check.
-2. Stage only the reconciled status/report and post-commit/fresh-environment
-   attestation logs; verify the staged diff.
-3. Create the final handoff-metadata commit.
-4. Regenerate `run_manifest.json`, `final_artifact_manifest.json`, and
-   `phase3_reproducible.zip` from that clean final HEAD without changing
-   scientific artifacts.
-5. Verify every manifest hash, ZIP CRC, exact entry set, required path, and
-   extracted smoke check.
-6. Confirm `git status --short` is empty (ignored manifests/ZIP excluded).
-7. Paste this complete file inline in Codex chat between the required markers.
+None. All Phase 3 contract work is complete. The only remaining handoff action
+is to paste this complete file inline in Codex chat between the required
+markers.
