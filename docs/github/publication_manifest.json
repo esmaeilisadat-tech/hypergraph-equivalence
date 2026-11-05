@@ -203,8 +203,8 @@
     },
     {
       "path": "docs/github/paper_author_update.json",
-      "size_bytes": 519,
-      "sha256": "de1603f18d7f96f705b75dfe6967ed5bafa6f8b72379ca23ba38913809bd90f3"
+      "size_bytes": 559,
+      "sha256": "13c16a3c267be0e575f6e22f2ed74fa1e89a81fed34ae25dcc9d4dce4b5e8c5d"
     },
     {
       "path": "docs/github/presentation_validation.json",
@@ -373,8 +373,8 @@
     },
     {
       "path": "docs/paper/Hypergraph_Sinkhorn_Paper_LaTeX_V3.pdf",
-      "size_bytes": 470894,
-      "sha256": "f607dbf0400cd19620eaeb1fa738ba5bca8f40bede118501d72b5126bd971b37"
+      "size_bytes": 470808,
+      "sha256": "c42620bcb1615c564122e7ff84166207686aeabfdbce48a12cf0f37f2a3d8595"
     },
     {
       "path": "eidi_paper.txt",
@@ -10328,8 +10328,8 @@
     },
     {
       "path": "tools/personalize_paper.py",
-      "size_bytes": 3753,
-      "sha256": "cceaff41b088feb5bdd5f6726c08e3cc6abaf305c2ff431ca5425f1b3a5a79fb"
+      "size_bytes": 4012,
+      "sha256": "c14915d7cc20c826859af81dc1a793c5639265cc4a618e4d0ce2edde6f651c08"
     },
     {
       "path": "tools/verify_publication.py",

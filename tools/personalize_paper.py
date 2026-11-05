@@ -28,6 +28,8 @@ def main():
     archive = ROOT / "results/phase3_archive" / timestamp / "paper_original"
     archive.mkdir(parents=True, exist_ok=False)
     shutil.copy2(PAPER, archive / PAPER.name)
+    if OUTPUT.exists():
+        shutil.copy2(OUTPUT, archive / "previous_published_paper.pdf")
     writer = PdfWriter()
     writer.clone_document_from_reader(source)
     page = writer.pages[0]
@@ -37,11 +39,11 @@ def main():
         if operator != b"TJ":
             continue
         text = "".join(str(v) for v in operands[0] if isinstance(v, str))
-        if text.startswith("Mahdieh") or text.startswith("[A") or "[email" in text:
+        if text.startswith("Mahdieh") or text.startswith("[A") or "[email" in text or text.startswith("Manuscript"):
             removed.append(text)
             operands[0] = ArrayObject()
-    if len(removed) != 3:
-        raise ValueError(f"Expected exactly three placeholder lines, found {removed}")
+    if len(removed) != 4:
+        raise ValueError(f"Expected three placeholder lines and one draft line, found {removed}")
     page.replace_contents(content)
     overlay = BytesIO()
     c = canvas.Canvas(overlay, pagesize=(float(page.mediabox.width), float(page.mediabox.height)))
@@ -55,19 +57,20 @@ def main():
     revised = PdfReader(BytesIO(target.getvalue()))
     assert len(source.pages) == len(revised.pages) == 14
     first = revised.pages[0].extract_text()
+    assert "Manuscript draft" not in first
     assert AUTHOR in first and "[Surname]" not in first and "[Affiliation]" not in first and "[email address]" not in first
     for i in range(1, len(source.pages)):
         assert source.pages[i].get_contents().get_data() == revised.pages[i].get_contents().get_data(), i
     # All first-page research text remains, apart from the three author placeholders.
     before = source.pages[0].extract_text()
-    for text in ("Mahdieh [Surname]", "[Affiliation]", "Corresponding author: [email address]"):
+    for text in ("Mahdieh [Surname]", "[Affiliation]", "Corresponding author: [email address]", "Manuscript draft \u2013 LaTeX revision"):
         before = before.replace(text, "")
     normalize = lambda text: "".join(text.split())
     assert normalize(before) == normalize(first.replace(AUTHOR,""))
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_bytes(target.getvalue())
     report = {"author":AUTHOR,"output":OUTPUT.relative_to(ROOT).as_posix(),"page_count":14,"research_text_preserved":True,
-              "pages_2_to_14_content_streams_unchanged":True,"removed_placeholder_line_count":3,
+              "pages_2_to_14_content_streams_unchanged":True,"removed_placeholder_line_count":3,"draft_revision_line_removed":True,
               "original_archive":archive.relative_to(ROOT).as_posix(),
               "original_sha256":hashlib.sha256(original).hexdigest(),
               "updated_sha256":hashlib.sha256(target.getvalue()).hexdigest()}
