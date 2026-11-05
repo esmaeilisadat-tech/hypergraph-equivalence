@@ -1,6 +1,6 @@
 # Codex Phase 3 Status
 
-Last reconciled: 2026-07-28 00:18:30 UTC
+Last reconciled: 2026-07-29 15:50:11 UTC
 
 ## Overall status
 
@@ -536,6 +536,219 @@ the report and this status record the immutable scientific evidence commit.
 
 ## Exact next action
 
-None. All Phase 3 contract work is complete. The only remaining handoff action
-is to paste this complete file inline in Codex chat between the required
-markers.
+None. The final-v2 Neo4j visualization export is complete and independently
+verified. The remaining action is the requested Codex Remote file handoff.
+
+## Neo4j Dataset Export
+
+Status: **PASS — COMPLETE**.
+
+- Scope: export and visualization only. No model training, split mutation,
+  dataset mutation, or scientific-evidence overwrite is authorized or being
+  performed.
+- Source benchmark: `learned_benchmark_v2_final`.
+- Source splits: `data/splits/{train,validation,iid_test,ood_template_test,ood_size_test}.json`.
+- Source split SHA-256:
+  - Train: `6d16657a848ef31e820c597eb585199a0b402ccfac92c247ea33d78664c38edf`
+  - Validation: `69bfa5c61be13bf71199cd152f8f5dfe002451fd08e80f282204d00ce9f63ada`
+  - IID: `260a8f3963b77c36c5e0c6064838bdb2d3042ef85426728c23f6adafde358c4f`
+  - OOD-template: `e8de47dba98ee788f6658e276d3a85e50c448aa35d5666801b8c31f09b56c322`
+  - OOD-size: `58625a95222355f928a04e34e5456fa50535b85299b1ad7bc1827ee1d197b982`
+- Primary visualization model: `LearnedSinkhornMatcher`, verified Seed 42.
+- Checkpoint:
+  `results/phase3/checkpoints/LearnedSinkhornMatcher_seed42.pt`;
+  SHA-256
+  `647a0750de3664b6f8f53b31d1f7a875e32c8658b326624c0581ece2f915e661`.
+- Checkpoint provenance: validation-selected epoch 114, selected temperature
+  `0.0199782345443964`, evaluation Sinkhorn iterations 100.
+- Verified semantics: each matrix row is an incident hyperedge of the selected
+  root; each column is a common neighboring vertex; a binary 1 records that
+  the incident hyperedge contains that neighboring vertex in addition to the
+  root. Class 0 is EE-equivalent but not strongly structurally equivalent;
+  class 1 is strongly structurally equivalent (equal incident-neighbor-set row
+  multisets).
+- Learned cost semantics: the non-negative, fully learned row-pair transport
+  cost `cost_scale * softplus(-pair_score)`; it is model output, not a formal
+  distance or ground truth.
+- Sinkhorn coupling semantics: normalized total mass 1 with uniform row and
+  column marginals; each exported learned match is model output, not ground
+  truth.
+- Safety archive:
+  `results/phase3_archive/20260729T153752Z_pre_neo4j_export/`;
+  archived status SHA-256
+  `c2507cc13ccadd0b00972c92fe62fd46b82b621cb2619bfd95eb0faeada7a9d7`.
+- Process inspection: no active Python/Jupyter/Papermill/Pytest process was
+  found; no running command or completed scientific stage was interrupted,
+  cancelled, restarted, or repeated.
+- Commands completed in this export stage:
+  - Git status/diff/log inspection: return 0.
+  - safe process-list inspection: return 0 (no matching process).
+  - authoritative spec/source/report/split/prediction/checkpoint inspection:
+    return 0.
+  - initial CIM command-line inspection: return 1 due Windows access denial;
+    resolved with non-invasive `Get-Process`, return 0.
+  - workspace dependency helper: unavailable in this host; resolved by using
+    the already validated project Python 3.11.15 environment.
+  - official Neo4j current constraint, `LOAD CSV`, and
+    `CALL { ... } IN TRANSACTIONS` syntax checked.
+  - `python -m py_compile src/export_neo4j.py`: return 0.
+  - first `python -m src.export_neo4j`: return 1 after 21.6 seconds; all
+    scientific checks were already zero-failure, but the new validator
+    incorrectly required `export_validation.json` before writing it and
+    counted parentheses in comments. Both validator defects were repaired.
+  - second export attempt: return 1 after 15.5 seconds; export validation
+    passed, but sandbox permissions prevented clean extraction under the
+    system `%TEMP%`. The verification location was moved inside the repository.
+  - third export attempt: return 1 after 14.5 seconds because Python-created
+    `TemporaryDirectory` inherited unusable Windows ACLs. It did not invalidate
+    generated data; verification was changed to one exact, checked workspace
+    path.
+  - final `python -m src.export_neo4j`: return 0 after 22.8 seconds; structured
+    export status and ZIP verification both `PASS`.
+  - independent post-generation manifest/ZIP/CSV audit: return 0; 25 manifest
+    entries, 26 ZIP entries, 14 parsed CSV files, zero hash or endpoint
+    failures.
+  - `python -m pytest -q`: return 0; `7 passed` in 14.14 seconds. One
+    non-scientific Pytest cache warning was caused by sandbox denial.
+  - `git diff --check`: return 0.
+
+### Source semantics and graph schema
+
+- Matrix-row node label: `IncidentHyperedge`. A row is one hyperedge incident
+  to the selected root.
+- Matrix-column node label: `NeighborVertex`. A column is one common neighboring
+  vertex. Separate x/y visualization nodes retain the same aligned
+  `column_index`.
+- `INCIDENT_TO` is created if and only if the source matrix entry equals 1.
+- `PAIRED_WITH` connects root x to root y with label, split, and sample ID.
+- `MODEL_MATCHES` is explicitly marked model output, not ground truth.
+- Exported learned cost is the primary model's non-negative learned cost
+  `cost_scale * softplus(-pair_score)`.
+- Exported Sinkhorn mass is the x-to-y Seed-42 evaluation coupling: total mass
+  1 with uniform marginals, checkpoint-selected temperature
+  `0.0199782345443964`, and 100 evaluation iterations.
+
+### Showcase
+
+Exactly 12 unique, label-balanced, test-split examples were selected:
+
+- IID:
+  `iid_test-pair-0169-class-1`,
+  `iid_test-pair-0284-class-0`,
+  `iid_test-pair-0051-class-1`,
+  `iid_test-pair-0169-class-0`.
+- OOD-template:
+  `ood_template_test-pair-0069-class-1`,
+  `ood_template_test-pair-0074-class-0`,
+  `ood_template_test-pair-0031-class-1`,
+  `ood_template_test-pair-0011-class-0`.
+- OOD-size:
+  `ood_size_test-pair-0039-class-1`,
+  `ood_size_test-pair-0039-class-0`,
+  `ood_size_test-pair-0071-class-1`,
+  `ood_size_test-pair-0169-class-0`.
+
+The largest example is `ood_size_test-pair-0071-class-1` (`m=30`, `k=20`).
+The model-hardest OOD-size negative is
+`ood_size_test-pair-0169-class-0`, saved probability `0.17400582`, still
+correctly classified. Exact selection reasons and coupling summaries are in
+`neo4j_export/showcase/showcase_manifest.json`.
+
+### Export counts
+
+Full dataset:
+
+- Samples: 3,600.
+- Roots: 7,200.
+- `IncidentHyperedge` nodes: 72,716.
+- `NeighborVertex` nodes: 61,036.
+- `INCIDENT_TO` relationships: 253,800.
+- `PAIRED_WITH` relationships: 3,600.
+- Seed-42 `Prediction` rows/nodes: 3,600, covering all five splits because
+  verified prediction files exist for Train, Validation, IID, OOD-template,
+  and OOD-size.
+
+Showcase:
+
+- Samples: 12.
+- Roots: 24.
+- `IncidentHyperedge` nodes: 268.
+- `NeighborVertex` nodes: 208.
+- `INCIDENT_TO`: 900.
+- `PAIRED_WITH`: 12.
+- `MODEL_MATCHES`: 2,412 (every row pair, with per-source rank and top-match
+  flag).
+
+### Validation and audits
+
+`neo4j_export/export_validation.json`: **PASS**.
+
+- Exported source IDs missing/unrecognized: 0 / 0.
+- Label or matrix-dimension mismatches: 0.
+- Source matrix entries equal to 1: 253,800.
+- Exported incidence relationships: 253,800.
+- Source-one/export delta: 0.
+- Relationships created for source zeros: 0.
+- Matrix reconstruction failures across all 3,600 samples and both sides: 0.
+- Duplicate node IDs: 0.
+- Duplicate incidence positions: 0.
+- Dangling relationship endpoints: 0.
+- Prediction mismatches: 0.
+- Learned-matching checkpoint/value mismatches: 0.
+- CSV UTF-8/parse/header failures: 0 across 14 CSV files.
+- Missing required files: 0.
+- Static current-Cypher failures: 0. `cypher-shell` is not installed locally,
+  so no claim of live-server execution is made; syntax was checked against the
+  official current Neo4j constraint, `LOAD CSV`, and transactional-subquery
+  documentation.
+
+### Manifest and ZIP
+
+- Output folder: `neo4j_export/`.
+- Top manifest: `neo4j_export/neo4j_export_manifest.json`.
+- Manifest entries: 25 hashed files. The manifest itself and containing ZIP
+  use the documented unavoidable self-reference exclusion.
+- ZIP: `neo4j_export/neo4j_export.zip`.
+- ZIP size: 3,174,840 bytes.
+- ZIP SHA-256:
+  `a6938e6799d5708b1cae6e27a6d44c3a615ba1ca7fc199de8b5bb69fc839aca1`.
+- ZIP entries: 26.
+- ZIP CRC failure: none.
+- Missing/extra ZIP entries: 0 / 0.
+- Extracted manifest hash mismatches: 0.
+- Extracted missing required files: 0.
+- Extracted CSV parse failures: 0.
+- Extracted relationship endpoint failures: 0.
+- Clean temporary extraction: PASS.
+
+### Files created or modified
+
+- Created `src/export_neo4j.py` as the deterministic, read-only exporter.
+- Created all requested files under `neo4j_export/`, including bilingual
+  READMEs, schema, constraints, showcase/full import scripts, 12 direct
+  visualization queries, GraSS style, 14 CSVs, sub-manifests, validation,
+  top manifest, and verified ZIP.
+- Modified `CODEX_PHASE3_STATUS.md` only outside the new exporter/output.
+- Locked source splits, checkpoint, predictions, audits, metrics, notebooks,
+  and reports were not modified. Their SHA-256 values were rechecked and still
+  match the authoritative values above.
+- Pre-existing untracked conference PDFs/assets/audio remain unrelated and
+  untouched.
+- One ignored, empty/incomplete ACL-protected temporary directory from the
+  failed `TemporaryDirectory` attempt may remain under `tmp/`; it is outside
+  the export/ZIP, absent from Git status, and has no scientific or artifact
+  effect. The successful clean extraction used the separately verified fixed
+  workspace path.
+
+### Remaining limitations
+
+- Neo4j was not installed in this workspace, so import scripts passed static
+  current-syntax and structural checks rather than a live-database import.
+- The graph is a visualization of the locked synthetic local incidence-star
+  benchmark, not an empirical hypergraph corpus.
+- Learned matching edges visualize one documented verified seed (42). Other
+  verified seeds remain available in Phase 3 evidence and can be added as
+  separate model-output relationships without changing structural data.
+
+Exact next action: none; surface the requested downloadable files in Codex
+Remote chat.

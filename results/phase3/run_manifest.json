@@ -1,0 +1,755 @@
+{
+  "schema_version": "phase3-run-manifest-v2",
+  "generated_utc": "2026-07-28T00:21:37.168367+00:00",
+  "branch": "codex-phase3-final",
+  "source_commit": "26f5869dae06ec5af19160258bb2f3e454d9c8c3",
+  "git_status": "",
+  "archive_paths": [
+    "results/phase3_archive/20260727_102315",
+    "results/phase3_archive/20260727T160053Z_independent_audit_corrections"
+  ],
+  "benchmark_version": "learned_benchmark_v2_final",
+  "primary_model": "LearnedSinkhornMatcher",
+  "model_roles": {
+    "LearnedSinkhornMatcher": "primary_learned",
+    "MLP_Baseline": "baseline",
+    "NestedDeepSets": "baseline",
+    "BipartiteEncoder": "baseline",
+    "DeterministicDifferentiableMatching": "algorithmic_baseline",
+    "ExactHungarianOracle": "oracle",
+    "FixedL1ResidualSinkhorn": "algorithmic_hybrid",
+    "FixedL1StraightThroughHungarian": "algorithmic_baseline",
+    "LearnedNoSinkhorn": "ablation",
+    "LearnedNoColumnContext": "ablation"
+  },
+  "seeds": [
+    42,
+    100,
+    2026,
+    777,
+    999
+  ],
+  "splits": {
+    "train": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [
+        5,
+        10
+      ],
+      "m_range": [
+        5,
+        12
+      ],
+      "switch_range": [
+        1,
+        4
+      ]
+    },
+    "validation": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [
+        5,
+        10
+      ],
+      "m_range": [
+        5,
+        12
+      ],
+      "switch_range": [
+        1,
+        4
+      ]
+    },
+    "iid_test": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [
+        5,
+        10
+      ],
+      "m_range": [
+        5,
+        12
+      ],
+      "switch_range": [
+        1,
+        4
+      ]
+    },
+    "ood_template_test": {
+      "samples": 800,
+      "pairs": 400,
+      "k_range": [
+        5,
+        10
+      ],
+      "m_range": [
+        5,
+        12
+      ],
+      "switch_range": [
+        5,
+        8
+      ]
+    },
+    "ood_size_test": {
+      "samples": 400,
+      "pairs": 200,
+      "k_range": [
+        12,
+        20
+      ],
+      "m_range": [
+        15,
+        30
+      ],
+      "switch_range": [
+        1,
+        4
+      ]
+    }
+  },
+  "python": {
+    "executable": "python.exe",
+    "version": "3.11.15",
+    "platform": "Windows-10-10.0.26200-SP0"
+  },
+  "torch": {
+    "version": "2.12.1+cpu",
+    "device": "cpu",
+    "cuda_available": false
+  },
+  "commands": [
+    {
+      "name": "active_source_imports",
+      "command": [
+        "{python}",
+        "-c",
+        "import pkgutil,src; names=[m.name for m in pkgutil.iter_modules(src.__path__)]; [__import__('src.'+n) for n in names]; print('active imports PASS',len(names),sorted(names))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:09:32.207223+00:00",
+      "ended_utc": "2026-07-27T15:09:40.255922+00:00",
+      "runtime_seconds": 8.050866599998699,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\active_source_imports.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\active_source_imports.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "active_source_tests",
+      "command": [
+        "{python}",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:09:32.211402+00:00",
+      "ended_utc": "2026-07-27T15:09:54.355998+00:00",
+      "runtime_seconds": 22.146505299999262,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\active_source_tests.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\active_source_tests.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "clean_phase3_validation",
+      "command": [
+        "{python}",
+        "-m",
+        "src.final_checks"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:03.910511+00:00",
+      "ended_utc": "2026-07-27T15:07:14.960132+00:00",
+      "runtime_seconds": 11.0510761000005,
+      "return_code": 1,
+      "stdout_path": "results\\phase3\\logs\\clean_phase3_validation.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\clean_phase3_validation.stderr.log",
+      "status": "FAIL"
+    },
+    {
+      "name": "clean_phase3_validation_retry",
+      "command": [
+        "{python}",
+        "-m",
+        "src.final_checks"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:50.881061+00:00",
+      "ended_utc": "2026-07-27T15:08:01.569968+00:00",
+      "runtime_seconds": 10.690573299998505,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\clean_phase3_validation_retry.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\clean_phase3_validation_retry.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_adopt_selected_seed42",
+      "command": [
+        "{python}",
+        "-m",
+        "src.adopt_selected_candidate"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T17:33:29.762497+00:00",
+      "ended_utc": "2026-07-27T17:34:02.981790+00:00",
+      "runtime_seconds": 33.221227800000634,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_adopt_selected_seed42.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_adopt_selected_seed42.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_final_checks_precommit",
+      "command": [
+        "{python}",
+        "-m",
+        "src.final_checks"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:06:02.693309+00:00",
+      "ended_utc": "2026-07-28T00:06:12.693890+00:00",
+      "runtime_seconds": 10.00267139999778,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_final_checks_precommit.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_final_checks_precommit.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_fresh_environment",
+      "command": [
+        "{python}",
+        "-m",
+        "src.fresh_environment_validation"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:09:47.531568+00:00",
+      "ended_utc": "2026-07-28T00:14:37.632553+00:00",
+      "runtime_seconds": 290.103666300005,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_fresh_environment.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_fresh_environment.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_full_experiments",
+      "command": [
+        "{python}",
+        "-m",
+        "src.run_final_experiments"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T17:34:42.596154+00:00",
+      "ended_utc": "2026-07-27T20:01:56.189234+00:00",
+      "runtime_seconds": 8833.618699200004,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_full_experiments.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_full_experiments.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_gates",
+      "command": [
+        "{python}",
+        "-m",
+        "src.run_gates"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T20:03:32.318383+00:00",
+      "ended_utc": "2026-07-27T20:09:15.187708+00:00",
+      "runtime_seconds": 342.8702173999991,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_gates.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_gates.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_handoff_final_checks",
+      "command": [
+        "{python}",
+        "-m",
+        "src.final_checks"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:18:36.896713+00:00",
+      "ended_utc": "2026-07-28T00:18:43.333295+00:00",
+      "runtime_seconds": 6.4373724999968545,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_handoff_final_checks.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_handoff_final_checks.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_handoff_report_consistency",
+      "command": [
+        "{python}",
+        "-c",
+        "from src.reporting import verify_report_consistency; import json; r=verify_report_consistency(); print(json.dumps(r,indent=2)); raise SystemExit(0 if r['status']=='PASS' else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:18:27.861296+00:00",
+      "ended_utc": "2026-07-28T00:18:30.805221+00:00",
+      "runtime_seconds": 2.9451957999990555,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_handoff_report_consistency.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_handoff_report_consistency.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_import_checks",
+      "command": [
+        "{python}",
+        "-c",
+        "import pkgutil,src; names=[m.name for m in pkgutil.iter_modules(src.__path__)]; [__import__('src.'+n) for n in names]; print('active imports PASS',len(names),sorted(names))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:05:29.317043+00:00",
+      "ended_utc": "2026-07-28T00:05:34.218619+00:00",
+      "runtime_seconds": 4.903109899998526,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_import_checks.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_import_checks.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_label_access_control",
+      "command": [
+        "{python}",
+        "-c",
+        "import json; from src.phase3_controls import run_label_access_control; print(json.dumps(run_label_access_control(), indent=2))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T17:37:25.652919+00:00",
+      "ended_utc": "2026-07-27T17:37:32.823767+00:00",
+      "runtime_seconds": 7.171972399999504,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_label_access_control.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_label_access_control.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_label_signal_controls",
+      "command": [
+        "{python}",
+        "-m",
+        "src.run_label_signal_controls"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T20:10:39.279384+00:00",
+      "ended_utc": "2026-07-27T21:33:42.327296+00:00",
+      "runtime_seconds": 4983.0988211,
+      "return_code": 1,
+      "stdout_path": "results\\phase3\\logs\\final_v2_label_signal_controls.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_label_signal_controls.stderr.log",
+      "status": "FAIL"
+    },
+    {
+      "name": "final_v2_notebooks",
+      "command": [
+        "{python}",
+        "-m",
+        "src.execute_notebooks"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:04:58.691765+00:00",
+      "ended_utc": "2026-07-28T00:05:09.799620+00:00",
+      "runtime_seconds": 11.108671699999832,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_notebooks.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_notebooks.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_numerical_audit",
+      "command": [
+        "{python}",
+        "-m",
+        "src.audit_model_numerics"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T23:05:06.952303+00:00",
+      "ended_utc": "2026-07-27T23:33:05.195511+00:00",
+      "runtime_seconds": 1678.2487435000003,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_numerical_audit.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_numerical_audit.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_numerical_audit_rerun",
+      "command": [
+        "{python}",
+        "-m",
+        "src.audit_model_numerics"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T23:35:17.694326+00:00",
+      "ended_utc": "2026-07-28T00:03:55.219471+00:00",
+      "runtime_seconds": 1717.530206800002,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_numerical_audit_rerun.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_numerical_audit_rerun.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_postcommit_artifacts",
+      "command": [
+        "{python}",
+        "-m",
+        "src.artifacts"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:08:52.457810+00:00",
+      "ended_utc": "2026-07-28T00:09:21.602447+00:00",
+      "runtime_seconds": 29.14652620000561,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_postcommit_artifacts.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_postcommit_artifacts.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_report",
+      "command": [
+        "{python}",
+        "-m",
+        "src.reporting"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:04:48.884669+00:00",
+      "ended_utc": "2026-07-28T00:04:52.265831+00:00",
+      "runtime_seconds": 3.3823680999994394,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_report.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_report.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_report_postcommit",
+      "command": [
+        "{python}",
+        "-m",
+        "src.reporting"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:15:35.759268+00:00",
+      "ended_utc": "2026-07-28T00:15:38.769845+00:00",
+      "runtime_seconds": 3.0113141999972868,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_report_postcommit.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_report_postcommit.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_repository_tests",
+      "command": [
+        "{python}",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-28T00:05:41.391909+00:00",
+      "ended_utc": "2026-07-28T00:05:56.173729+00:00",
+      "runtime_seconds": 14.783576099995116,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_repository_tests.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_repository_tests.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_scientific_claim_audit",
+      "command": [
+        "{python}",
+        "-m",
+        "src.scientific_claim_audit"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T23:04:35.709148+00:00",
+      "ended_utc": "2026-07-27T23:04:39.692782+00:00",
+      "runtime_seconds": 3.984996199993475,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_scientific_claim_audit.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_scientific_claim_audit.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_split_audit",
+      "command": [
+        "{python}",
+        "-m",
+        "src.audit_splits"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T23:04:13.542386+00:00",
+      "ended_utc": "2026-07-27T23:04:30.003464+00:00",
+      "runtime_seconds": 16.462597700003244,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_split_audit.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_split_audit.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_supervised_only_label_signal_controls",
+      "command": [
+        "{python}",
+        "-m",
+        "src.run_label_signal_controls"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T21:37:30.211156+00:00",
+      "ended_utc": "2026-07-27T23:02:58.919869+00:00",
+      "runtime_seconds": 5128.729064899999,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_supervised_only_label_signal_controls.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_supervised_only_label_signal_controls.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_v2_zero_shot_control",
+      "command": [
+        "{python}",
+        "-m",
+        "src.phase3_controls"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T17:21:40.621686+00:00",
+      "ended_utc": "2026-07-27T17:32:40.109910+00:00",
+      "runtime_seconds": 659.4936151000002,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_v2_zero_shot_control.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_v2_zero_shot_control.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "final_zip_verification",
+      "command": [
+        "{python}",
+        "-c",
+        "from src.artifacts import verify_zip; import json; r=verify_zip(); print(json.dumps(r,indent=2)); raise SystemExit(0 if r['status']=='PASS' else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:11:23.626133+00:00",
+      "ended_utc": "2026-07-27T15:11:36.025403+00:00",
+      "runtime_seconds": 12.400304200000392,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\final_zip_verification.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\final_zip_verification.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "gate_evidence_validation",
+      "command": [
+        "{python}",
+        "-c",
+        "import json,pathlib; p=pathlib.Path('results/phase3'); names=['gate_a_report.json','gate_b_report.json','gate_c_report.json','checkpoint_roundtrip.json']; rows={n:json.loads((p/n).read_text())['status'] for n in names}; print(json.dumps(rows,indent=2)); raise SystemExit(0 if all(v=='PASS' for v in rows.values()) else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:50.855701+00:00",
+      "ended_utc": "2026-07-27T15:07:50.965805+00:00",
+      "runtime_seconds": 0.11096370000086608,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\gate_evidence_validation.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\gate_evidence_validation.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "import_checks",
+      "command": [
+        "{python}",
+        "-c",
+        "import src.phase3_data,src.differentiable_matching,src.phase3_experiments,src.audit_model_numerics,src.reporting,src.artifacts; print('import checks PASS')"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:03.910511+00:00",
+      "ended_utc": "2026-07-27T15:07:08.635252+00:00",
+      "runtime_seconds": 4.726563000000169,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\import_checks.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\import_checks.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "learned_primary_candidate_v2_seed42_train_validation_only",
+      "command": [
+        "{python}",
+        "-c",
+        "import json, pathlib, torch; from src.phase3_data import load_splits,file_sha256; from src.phase3_experiments import train_model,predict,_metrics,_checkpoint_payload; s=load_splits(['train','validation']); m,meta=train_model('LearnedSinkhornMatcher',42,s['train'],s['validation']); d=pathlib.Path('results/phase3/model_selection'); d.mkdir(parents=True,exist_ok=True); cp=d/'candidate_v2_seed42.pt'; torch.save(_checkpoint_payload(m,meta),cp); out={'candidate':'v2','seed':42,'checkpoint':str(cp),'checkpoint_sha256':file_sha256(cp),'train':_metrics(*predict(m,s['train'])),'validation':_metrics(*predict(m,s['validation'])),'metadata':meta}; (d/'candidate_v2_seed42.json').write_text(json.dumps(out,indent=2)+'\\n',encoding='utf-8'); print(json.dumps(out,indent=2))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T16:25:20.487812+00:00",
+      "ended_utc": "2026-07-27T16:34:28.075819+00:00",
+      "runtime_seconds": 547.5978095000028,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\learned_primary_candidate_v2_seed42_train_validation_only.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\learned_primary_candidate_v2_seed42_train_validation_only.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "learned_primary_candidate_v3_seed42_train_validation_only",
+      "command": [
+        "{python}",
+        "-c",
+        "import json, pathlib, torch; from src.phase3_data import load_splits,file_sha256; from src.phase3_experiments import train_model,predict,_metrics,_checkpoint_payload; s=load_splits(['train','validation']); m,meta=train_model('LearnedSinkhornMatcher',42,s['train'],s['validation']); d=pathlib.Path('results/phase3/model_selection'); d.mkdir(parents=True,exist_ok=True); cp=d/'candidate_v3_seed42.pt'; torch.save(_checkpoint_payload(m,meta),cp); out={'candidate':'v3','seed':42,'checkpoint':str(cp),'checkpoint_sha256':file_sha256(cp),'train':_metrics(*predict(m,s['train'])),'validation':_metrics(*predict(m,s['validation'])),'metadata':meta}; (d/'candidate_v3_seed42.json').write_text(json.dumps(out,indent=2)+'\\n',encoding='utf-8'); print(json.dumps({k:v for k,v in out.items() if k!='metadata'} | {'selection_epoch':meta['selection_epoch'],'epochs_executed':meta['epochs_executed'],'initial_train':meta['initial_train_metrics'],'initial_validation':meta['initial_validation_metrics']},indent=2))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T16:35:43.797691+00:00",
+      "ended_utc": "2026-07-27T16:47:55.946213+00:00",
+      "runtime_seconds": 732.1603142000022,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\learned_primary_candidate_v3_seed42_train_validation_only.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\learned_primary_candidate_v3_seed42_train_validation_only.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "learned_primary_candidate_v4_seed42_train_validation_only",
+      "command": [
+        "{python}",
+        "-c",
+        "import json, pathlib, torch; from src.phase3_data import load_splits,file_sha256; from src.phase3_experiments import train_model,predict,_metrics,_checkpoint_payload; s=load_splits(['train','validation']); m,meta=train_model('LearnedSinkhornMatcher',42,s['train'],s['validation']); d=pathlib.Path('results/phase3/model_selection'); d.mkdir(parents=True,exist_ok=True); cp=d/'candidate_v4_seed42.pt'; torch.save(_checkpoint_payload(m,meta),cp); out={'candidate':'v4','seed':42,'checkpoint':str(cp),'checkpoint_sha256':file_sha256(cp),'train':_metrics(*predict(m,s['train'])),'validation':_metrics(*predict(m,s['validation'])),'metadata':meta}; (d/'candidate_v4_seed42.json').write_text(json.dumps(out,indent=2)+'\\n',encoding='utf-8'); print(json.dumps({k:v for k,v in out.items() if k!='metadata'} | {'selection_epoch':meta['selection_epoch'],'epochs_executed':meta['epochs_executed'],'initial_train':meta['initial_train_metrics'],'initial_validation':meta['initial_validation_metrics']},indent=2))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T16:48:47.930435+00:00",
+      "ended_utc": "2026-07-27T17:04:57.876106+00:00",
+      "runtime_seconds": 969.9559226000019,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\learned_primary_candidate_v4_seed42_train_validation_only.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\learned_primary_candidate_v4_seed42_train_validation_only.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "learned_primary_candidate_v5_seed42_train_validation_only",
+      "command": [
+        "{python}",
+        "-c",
+        "import json, pathlib, torch; from src.phase3_data import load_splits,file_sha256; from src.phase3_experiments import train_model,predict,_metrics,_checkpoint_payload; s=load_splits(['train','validation']); m,meta=train_model('LearnedSinkhornMatcher',42,s['train'],s['validation']); d=pathlib.Path('results/phase3/model_selection'); d.mkdir(parents=True,exist_ok=True); cp=d/'candidate_v5_seed42.pt'; torch.save(_checkpoint_payload(m,meta),cp); out={'candidate':'v5','seed':42,'checkpoint':str(cp),'checkpoint_sha256':file_sha256(cp),'train':_metrics(*predict(m,s['train'])),'validation':_metrics(*predict(m,s['validation'])),'metadata':meta}; (d/'candidate_v5_seed42.json').write_text(json.dumps(out,indent=2)+'\\n',encoding='utf-8'); print(json.dumps({k:v for k,v in out.items() if k!='metadata'} | {'selection_epoch':meta['selection_epoch'],'epochs_executed':meta['epochs_executed'],'pretraining':meta['self_supervised_cost_pretraining'],'initial_train':meta['initial_train_metrics'],'initial_validation':meta['initial_validation_metrics']},indent=2))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T17:06:53.785183+00:00",
+      "ended_utc": "2026-07-27T17:19:36.808824+00:00",
+      "runtime_seconds": 763.0303667999979,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\learned_primary_candidate_v5_seed42_train_validation_only.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\learned_primary_candidate_v5_seed42_train_validation_only.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "learned_primary_seed42_first_optimization",
+      "command": [
+        "{python}",
+        "-c",
+        "import json; from src.phase3_data import load_splits; from src.phase3_experiments import run_model_seed; rows, gate = run_model_seed('LearnedSinkhornMatcher', 42, load_splits(), resume=True); print(json.dumps({'gate_c': gate, 'metrics': rows}, indent=2, allow_nan=True))"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T16:21:14.789757+00:00",
+      "ended_utc": "2026-07-27T16:23:12.364726+00:00",
+      "runtime_seconds": 117.57804219999889,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\learned_primary_seed42_first_optimization.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\learned_primary_seed42_first_optimization.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "manifest_hash_verification",
+      "command": [
+        "{python}",
+        "-c",
+        "from src.artifacts import verify_manifest; import json; r=verify_manifest(); print(json.dumps(r,indent=2)); raise SystemExit(0 if r['status']=='PASS' else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:11:23.603307+00:00",
+      "ended_utc": "2026-07-27T15:11:27.215862+00:00",
+      "runtime_seconds": 3.614308500000334,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\manifest_hash_verification.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\manifest_hash_verification.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "notebook_execution_check",
+      "command": [
+        "{python}",
+        "-c",
+        "import json,pathlib; out={}; ok=True; [None for p in [pathlib.Path('notebooks/Phase3_Research.ipynb'),pathlib.Path('notebooks/Phase3_Explained_FA.ipynb')] for n in [json.loads(p.read_text(encoding='utf-8'))] for code in [[c for c in n['cells'] if c['cell_type']=='code']] for errors in [[o for c in code for o in c.get('outputs',[]) if o.get('output_type')=='error']] for executed in [sum(c.get('execution_count') is not None for c in code)] for _ in [out.update({p.name:{'code_cells':len(code),'executed_cells':executed,'error_outputs':len(errors)}})] for __ in [globals().__setitem__('ok',globals()['ok'] and executed==len(code) and not errors)]]; print(json.dumps(out,indent=2)); raise SystemExit(0 if ok else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:08:11.352094+00:00",
+      "ended_utc": "2026-07-27T15:08:11.446786+00:00",
+      "runtime_seconds": 0.09604330000001937,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\notebook_execution_check.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\notebook_execution_check.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "numerical_audit_evidence",
+      "command": [
+        "{python}",
+        "-c",
+        "import json,pathlib; r=json.loads(pathlib.Path('results/phase3/numerical_audit.json').read_text()); print(json.dumps({'status':r['status'],'audited_sample_count':r['audited_sample_count'],'failed_sample_count':r['failed_sample_count'],'sinkhorn_iterations':r['sinkhorn_iterations']},indent=2)); raise SystemExit(0 if r['status']=='PASS' and r['failed_sample_count']==0 else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:50.931175+00:00",
+      "ended_utc": "2026-07-27T15:07:51.041108+00:00",
+      "runtime_seconds": 0.11105049999969197,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\numerical_audit_evidence.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\numerical_audit_evidence.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "report_consistency",
+      "command": [
+        "{python}",
+        "-c",
+        "from src.reporting import verify_report_consistency; import json; r=verify_report_consistency(); print(json.dumps(r,indent=2)); raise SystemExit(0 if r['status']=='PASS' else 1)"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:50.873729+00:00",
+      "ended_utc": "2026-07-27T15:07:55.405554+00:00",
+      "runtime_seconds": 4.53265630000169,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\report_consistency.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\report_consistency.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "repository_tests",
+      "command": [
+        "{python}",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:03.905641+00:00",
+      "ended_utc": "2026-07-27T15:07:19.487163+00:00",
+      "runtime_seconds": 15.582447000000684,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\repository_tests.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\repository_tests.stderr.log",
+      "status": "PASS"
+    },
+    {
+      "name": "split_integrity_audit",
+      "command": [
+        "{python}",
+        "-m",
+        "src.audit_splits"
+      ],
+      "working_directory": ".",
+      "started_utc": "2026-07-27T15:07:03.911519+00:00",
+      "ended_utc": "2026-07-27T15:07:26.049604+00:00",
+      "runtime_seconds": 22.14053260000219,
+      "return_code": 0,
+      "stdout_path": "results\\phase3\\logs\\split_integrity_audit.stdout.log",
+      "stderr_path": "results\\phase3\\logs\\split_integrity_audit.stderr.log",
+      "status": "PASS"
+    }
+  ],
+  "completed_checkpoint_count": 50,
+  "completed_prediction_count": 250
+}

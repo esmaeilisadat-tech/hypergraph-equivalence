@@ -1,0 +1,11 @@
+{
+  "author": "Mahdieh Sadat Esmaeili",
+  "output": "docs/paper/Hypergraph_Sinkhorn_Paper_LaTeX_V3.pdf",
+  "page_count": 14,
+  "research_text_preserved": true,
+  "pages_2_to_14_content_streams_unchanged": true,
+  "removed_placeholder_line_count": 3,
+  "original_archive": "results/phase3_archive/20261105T072627Z/paper_original",
+  "original_sha256": "f61b31404a6ef78b96a6b1b450f843291064b83f92c6bf162a69bdc8aa4a9484",
+  "updated_sha256": "f607dbf0400cd19620eaeb1fa738ba5bca8f40bede118501d72b5126bd971b37"
+}
