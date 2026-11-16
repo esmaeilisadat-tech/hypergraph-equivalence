@@ -105,6 +105,7 @@ Perfect scores apply to these locked **synthetic local incidence-star splits**. 
 | `configs/` | Model configurations |
 | `data/splits/` | Active locked experimental splits |
 | `notebooks/` | Final research notebooks in English and Persian |
+| `notebooks/early_exploration/` | Early MVP and dataset-generation notebooks, kept for history |
 | `results/phase3/` | Active checkpoints, predictions, metrics and scientific evidence |
 | `tests/` | Repository tests |
 
@@ -117,3 +118,7 @@ python -m src.final_checks
 ```
 
 For a full training run, the entry point is `python -m src.run_final_experiments`; it is resumable. Back up existing experimental outputs before running commands that write results. Historical deterministic and development runs are stored separately from the active `results/phase3/` study.
+
+## Theoretical background
+
+The equivalence notions used here follow Marzieh Eidi et al., *Geometric characterisation of structural and regular equivalences in undirected (hyper)graphs*, Journal of Physics: Complexity (2026), [doi:10.1088/2632-072X/ae6f5e](https://doi.org/10.1088/2632-072X/ae6f5e) (open access, CC BY 4.0).
